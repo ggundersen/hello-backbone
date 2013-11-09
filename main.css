@@ -1,3 +1,6 @@
 .done {
 	color: #aaa;
 }
+table td.task {
+	width: 300px;
+}

@@ -48,7 +48,7 @@
 	var Item = Backbone.Model.extend({
 		defaults: {
 			status: 0, // 0: incomplete, 1: complete
-			text: 'hello',
+			text: '(error)',
 			date: new Date().toTimeString()
 		}
 	});
@@ -86,11 +86,11 @@
 	// this to `ListView`. Views are like a classes in that they are
 	// instantiated objects with inheritances.
 	var ItemView = Backbone.View.extend({
-		tagName: 'li', // name of (orphan) root tag in this.el
+		tagName: 'tr', // name of (orphan) root tag in this.el
 	
 		events: {
 			'click input.check': 'update',
-			'click span.delete': 'remove'
+			'click td.delete': 'remove'
 		},
 
 		initialize: function(){
@@ -111,10 +111,11 @@
 
 		render: function(){
 			$(this.el).html(
-				'<span>' + this.model.get('text') + ' ' + this.model.get('date') + '</span>' +
-				'<input class="check" type="checkbox">' +
-				//'<span class="done">' + '[done]</span>' +
-				'<span class="delete">' + '[delete]</span>'
+				'<tr>' +
+					'<td class="task">' + this.model.get('text') + ' ' + this.model.get('date') + '</td>' +
+					'<td><input class="check" type="checkbox"></td>' +
+					'<td class="delete">delete</td>' +
+				'</tr>'
 			);
 			// For chaining.
 			return this;
@@ -186,16 +187,16 @@
 				'<h3>To-do List</h3>' +
 				'<button id="add">+</button>' +
 				'<input id="input"></input>' +
-				'<ul></ul>'
+				'<table></table>'
 			);
 
 			// Pass in every item in the collection (every model)
 			// into `appendItem`. But why do we do this? Just in case
 			// the collection is not empty. It is, for this tutorial,
 			// meaningless.
-			_(this.collection.models).each(function(item) {
-				self.appendItem(item);
-			}, this);
+			//_(this.collection.models).each(function(item) {
+			//	self.appendItem(item);
+			//}, this);
 		},
 
 		// `addItem` is bound to the click event of the #add button.
@@ -240,9 +241,9 @@
 
 			// We can call `...render().el` because `itemView`'s
 			// `render` method returns `this`. Thus, `this.el` refers
-			// to the specific DOM element, the <li> tag in
+			// to the specific DOM element, the <tr> tag in
 			// `ItemView`.
-			$('ul', this.el).append(itemView.render().el);
+			$('table', this.el).append(itemView.render().el);
 		}
 
 	});
