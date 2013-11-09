@@ -26,6 +26,7 @@
 
 (function($){
 
+
 	// I have no idea what this does.
 	Backbone.sync = function(method, model, success, error){
 		success();
@@ -47,9 +48,8 @@
 
 	var Item = Backbone.Model.extend({
 		defaults: {
-			status: 0, // 0: incomplete, 1: complete
-			text: 'hello',
-			date: new Date().toTimeString()
+			part1: 'hello',
+			part2: 'world'
 		}
 	});
 
@@ -89,14 +89,14 @@
 		tagName: 'li', // name of (orphan) root tag in this.el
 	
 		events: {
-			'click input.check': 'update',
+			'click span.swap':  'swap',
 			'click span.delete': 'remove'
 		},
 
 		initialize: function(){
 			// every function that uses `this` as the current object
 			// should be in here
-			_.bindAll(this, 'render', 'unrender', 'remove', 'update');
+			_.bindAll(this, 'render', 'unrender', 'swap', 'remove');
 
  			// `bind` binds strings to methods. It is different than
  			// `bindAll`, which is concerned with the dynamic binding
@@ -106,28 +106,33 @@
  			// be happening under the hood.
 			this.model.bind('change', this.render);
 			this.model.bind('remove', this.unrender);
-			this.model.bind('update', this.update);
 		},
 
 		render: function(){
 			$(this.el).html(
-				'<span>' + this.model.get('text') + ' ' + this.model.get('date') + '</span>' +
-				'<input class="check" type="checkbox">' +
-				//'<span class="done">' + '[done]</span>' +
-				'<span class="delete">' + '[delete]</span>'
+				'<span style="color:black;">' + this.model.get('part1') + ' ' + this.model.get('part2') + '</span>' +
+				'<span class="swap" style="font-family:sans-serif; color:blue; cursor:pointer;">' + '[swap]</span>' +
+				'<span class="delete" style="cursor:pointer; color:red; font-family:sans-serif;">' + '[delete]</span>'
 			);
 			// For chaining.
 			return this;
-		},
-
-		update: function() {
-			$(this.el).toggleClass('done');
 		},
 
 		unrender: function(){
 			$(this.el).remove();
 		},
 
+		// `swap` is a convenience function that flips `part1` with
+		// `part1`.
+		swap: function(){
+			var swapped = {
+				part1: this.model.get('part2'),
+				part2: this.model.get('part1')
+			};
+			this.model.set(swapped);
+		},
+
+		// Oy vey.
 		remove: function(){
 			this.model.destroy();
 		}
@@ -182,12 +187,8 @@
 			var self = this;
 
 			// `render` is interacts with the DOM view `el`.
-			$(this.el).append(
-				'<h3>To-do List</h3>' +
-				'<button id="add">+</button>' +
-				'<input id="input"></input>' +
-				'<ul></ul>'
-			);
+			$(this.el).append('<button id="add">Add list item</button>');
+			$(this.el).append('<ul></ul>');
 
 			// Pass in every item in the collection (every model)
 			// into `appendItem`. But why do we do this? Just in case
@@ -204,33 +205,23 @@
 		// a default object with more data. Remember, this is just
 		// modifying the model. It has nothing to do with the DOM.
 		addItem: function() {
-			var item,
-				input = $('#input').val();
+			this.counter++;
 
-			if ( !input ) {
-				alert('Please add something to do');
-			} else {
-				this.counter++;
+			// Every time `addItem` is called, a new `Item` model is
+			// instantiated.
+			var item = new Item();
 
-				// Every time `addItem` is called, a new `Item` model is
-				// instantiated.
-				item = new Item();
+			// `set` must be a built-in method for models. This 
+			// passes in an object which overrides the model's
+			// `defaults` object.
+			item.set({
+				part2: item.get('part2') + this.counter
+			});
 
-				// `set` must be a built-in method for models. This 
-				// passes in an object which overrides the model's
-				// `defaults` object.
-				item.set({
-					text: input
-				});
-
-				// Adding to the collection by calling `add` is really,
-				// in this case, calling `appendItem` with the
-				// appropriate model data.
-				this.collection.add(item);
-
-				// Clear input
-				$('#input').val('');
-			}
+			// Adding to the collection by calling `add` is really,
+			// in this case, calling `appendItem` with the
+			// appropriate model data.
+			this.collection.add(item);
 		},
 
 		appendItem: function(item){
