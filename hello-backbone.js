@@ -76,6 +76,25 @@
  * react to specific changes in the state of your models.'
  * --------------------------------------------------------------- */
 
+	// `ItemView` is responsible for rendering each item. Compare
+	// this to `ListView`.
+	var ItemView = Backbone.View.extend({
+		tagName: 'li', // name of (orphan) root tag in this.el
+	
+		initialize: function(){
+			// every function that uses `this` as the current object
+			// should be in here
+			_.bindAll(this, 'render');
+		},
+
+		render: function(){
+			$(this.el).html('<span>' + this.model.get('part1') + ' ' + this.model.get('part2') + '</span>');
+			// For chaining.
+			return this;
+		}
+
+	});
+
 	// `ListView` is a backbone `View`, which is like a class in that
 	// it is an object with inheritances. Backbone Views are then
 	// instantiated.
@@ -93,8 +112,6 @@
 		// `initialize` is called upon instantiation of the View.
 		initialize: function() {
 
-			// `bindAll` fixes the loss of context of `this`. How
-			// does it work?
 			_.bindAll(this, 'render', 'addItem', 'appendItem');
 
 			// `new List()` instantiates a new Backbone Collection,
@@ -164,12 +181,22 @@
 		},
 
 		appendItem: function(item){
-			$('ul', this.el).append('<li>' + item.get('part1') + ' ' + item.get('part2') + '</li>');
+			var itemView = new ItemView({
+				model: item
+			});
+
+			// We can call `...render().el` because `itemView`'s
+			// `render` method returns `this`. Thus, `this.el` refers
+			// to the specific DOM element, the <li> tag in
+			// `ItemView`.
+			$('ul', this.el).append(itemView.render().el);
 		}
 
 	});
 
-	// `listView` is an instantiation of `ListView`.
+	// `listView` is an instantiation of `ListView`. If this was not
+	// instantiated, then the list would simply not appear. Think of
+	// 
 	var listView = new ListView();
 
 // Add jQuery to the IIFE.
