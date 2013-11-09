@@ -27,6 +27,12 @@
 (function($){
 
 
+	// I have no idea what this does.
+	Backbone.sync = function(method, model, success, error){
+		success();
+	};
+
+
 /* Models
  *
  * [A] 'Backbone Models [is] the basic data object in the framework--
@@ -77,27 +83,64 @@
  * --------------------------------------------------------------- */
 
 	// `ItemView` is responsible for rendering each item. Compare
-	// this to `ListView`.
+	// this to `ListView`. Views are like a classes in that they are
+	// instantiated objects with inheritances.
 	var ItemView = Backbone.View.extend({
 		tagName: 'li', // name of (orphan) root tag in this.el
 	
+		events: {
+			'click span.swap':  'swap',
+			'click span.delete': 'remove'
+		},
+
 		initialize: function(){
 			// every function that uses `this` as the current object
 			// should be in here
-			_.bindAll(this, 'render');
+			_.bindAll(this, 'render', 'unrender', 'swap', 'remove');
+
+ 			// `bind` binds strings to methods. It is different than
+ 			// `bindAll`, which is concerned with the dynamic binding
+ 			// of `this`. I suppose another question might be: why
+ 			// does Backbone force you to bind your methods, rather
+ 			// than add them directly to the object? Something must
+ 			// be happening under the hood.
+			this.model.bind('change', this.render);
+			this.model.bind('remove', this.unrender);
 		},
 
 		render: function(){
-			$(this.el).html('<span>' + this.model.get('part1') + ' ' + this.model.get('part2') + '</span>');
+			$(this.el).html(
+				'<span style="color:black;">' + this.model.get('part1') + ' ' + this.model.get('part2') + '</span>' +
+				'<span class="swap" style="font-family:sans-serif; color:blue; cursor:pointer;">' + '[swap]</span>' +
+				'<span class="delete" style="cursor:pointer; color:red; font-family:sans-serif;">' + '[delete]</span>'
+			);
 			// For chaining.
 			return this;
-		}
+		},
 
+		unrender: function(){
+			$(this.el).remove();
+		},
+
+		// `swap` is a convenience function that flips `part1` with
+		// `part1`.
+		swap: function(){
+			var swapped = {
+				part1: this.model.get('part2'),
+				part2: this.model.get('part1')
+			};
+			this.model.set(swapped);
+		},
+
+		// Oy vey.
+		remove: function(){
+			this.model.destroy();
+		}
 	});
 
-	// `ListView` is a backbone `View`, which is like a class in that
-	// it is an object with inheritances. Backbone Views are then
-	// instantiated.
+	// `ListView` is the view of the list. Think about how this is
+	// fundamentally separated from `ItemView`. We can dramatically
+	// change how we model items without effecting `Listview`.
 	var ListView = Backbone.View.extend({
 
 		// `el` is the DOM node that, upon instantion, is bound to
@@ -148,8 +191,9 @@
 			$(this.el).append('<ul></ul>');
 
 			// Pass in every item in the collection (every model)
-			// into `appendItem`. But why do we do this? When
-			// `render` is called, the collection is empty.
+			// into `appendItem`. But why do we do this? Just in case
+			// the collection is not empty. It is, for this tutorial,
+			// meaningless.
 			_(this.collection.models).each(function(item) {
 				self.appendItem(item);
 			}, this);
