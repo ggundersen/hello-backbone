@@ -8,27 +8,19 @@
 /* What is Backbone.js?
  * --------------------
  * Backbone.js is lightweight framework for organizing JavaScript
- * code into an MVC architecture (Model, View, Controller):
- * 
- * 1. A `Model` retrieves and populates data. The important point is
- *    is that you do not have to store data in the DOM. You store it
- *    in meaningfully organized and named objects.
- * 2. A `View` is the HTML representation of an instantiated model.
- *    Views update automatically when models change. This separates
- *    the client-server logic from the DOM.
- * 3. Controllers, in classic MVC architecture, connect the models
- *    and views. Controllers do not exist in Backbone. The
- *    documentation says:
- *     
- *      'References between Models and Views can be handled several
- *      ways. Some people like to have direct pointers, where views
- *      correspond 1:1 with models... Others prefer to have
- *      intermediate "controller" objects that orchestrate the
- *      creation and organization of views into a hierarchy. Others
- *      still prefer the evented approach, and always fire events
- *      instead of calling methods directly.'
+ * code into an MVC-ish architecture (Model, View, Controller):
  *
- * 4. A `Collection` is a set of models.
+ * 1.  A `Model` retrieves and populates data. The important point is
+ *     is that you do not have to store data in the DOM. You store it
+ *     in meaningfully organized and named objects.
+ * 2a. A `View` is the HTML representation of an instantiated model.
+ *     Views update automatically when models change. This separates
+ *     the client-server logic from the DOM.
+ * 2b. A `Collection` is a set of models. 'Basically an array of
+ *     Model objects with some helper functions.' The 'C' in 'MVC'
+ *     refers to 'controller', not 'collection'.
+ * 3.  Controllers, in classic MVC architecture, connect the models
+ *     and views. Controllers do not exist in Backbone.   
  */
 
 
@@ -42,6 +34,10 @@
  * server. A discrete chunk of data and a bunch of useful, related
  * methods for performing computations and transformations on that
  * data.
+ *
+ * 'A model is basically a Javascript object, i.e. key-value pairs,
+ * with some helper functions to handle event triggering,
+ * persistence, etc.'
  * --------------------------------------------------------------- */
 
 	var Item = Backbone.Model.extend({
@@ -116,17 +112,37 @@
 			// be accessed excess through `addItem`.
 			this.counter = 0;
 
-			// This view is self-rendering. Obviously, it is not
-			// necessary to call this function.
+			// See `render`.			
 			this.render();
 		},
 
-		// `render` is interacts with the DOM view `el`.
+		// `render` builds a simple list with an 'add' button. It
+		// iterates over every item (model) in the view's collection
+		// and applies that item as an argument to `appendItem`.
+		// Basically, it builds a DOM-level unordered list from data
+		// stored in models.
 		render: function() {
+			// Store a reference to `this` since it needs to be
+			// referenced in `each`.
+			var self = this;
+
+			// `render` is interacts with the DOM view `el`.
 			$(this.el).append('<button id="add">Add list item</button>');
-			$(this.el).append('<ul><li>hello world</li></ul>');
+			$(this.el).append('<ul></ul>');
+
+			// Pass in every item in the collection (every model)
+			// into `appendItem`. But why do we do this? When
+			// `render` is called, the collection is empty.
+			_(this.collection.models).each(function(item) {
+				self.appendItem(item);
+			}, this);
 		},
 
+		// `addItem` is bound to the click event of the #add button.
+		// It increments the counter and instantiates a new `Item`
+		// (which is just a model) `item` and calls `set`, passing in
+		// a default object with more data. Remember, this is just
+		// modifying the model. It has nothing to do with the DOM.
 		addItem: function() {
 			this.counter++;
 
@@ -141,7 +157,9 @@
 				part2: item.get('part2') + this.counter
 			});
 
-			//
+			// Adding to the collection by calling `add` is really,
+			// in this case, calling `appendItem` with the
+			// appropriate model data.
 			this.collection.add(item);
 		},
 
@@ -154,4 +172,5 @@
 	// `listView` is an instantiation of `ListView`.
 	var listView = new ListView();
 
+// Add jQuery to the IIFE.
 })(jQuery);
