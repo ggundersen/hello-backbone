@@ -1,17 +1,27 @@
 App.View.Setup = Backbone.View.extend({
 
-	el: 'modalContainer',
+	el: 'overlay',
+
+	events: {
+		'click button#close': 'closeModal'
+	},
 
 	render: function() {
+		console.log(this.el);
 		$('body').append(
 			'<div id="overlay">' +
 				'<div>' +
-					'<p>Content you want the user to see goes here.</p>' + 
+					'<p>Add a user.</p>' +
+					'<button id="close">Close</button>' +
 				'</div>' +
 			'</div>'
 		);
 		$('#overlay').show();
-		$('#content').css('background', '#000');
+	},
+
+	closeModal: function() {
+		console.log('hey');
+		$('#overlay').hide();
 	}
 
 });

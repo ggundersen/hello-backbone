@@ -1,11 +1,23 @@
+body {
+	margin: 0;
+}
 #overlay {
-	border: 1px solid #000;
+	background: #000;
 	display: none;
 	height: 100%;
-	left: 50%;
+	margin: 0;
+	opacity: .7;
+	padding: 0;
 	position: absolute;
-	margin-left: -100px;
 	top: 0;
-	width: 200px;
+	width: 100%;
 	z-index: 1000;
+}
+#overlay div {
+	background-color: #fff;
+	border: 1px solid #000;
+	margin: 100px auto;
+	padding: 15px;
+	text-align: center;
+	width: 300px;
 }
