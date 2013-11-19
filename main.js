@@ -22,7 +22,6 @@
  *     and views. Controllers do not exist in Backbone.   
  */
 
-
 (function($){
 
 	// I have no idea what this does.
