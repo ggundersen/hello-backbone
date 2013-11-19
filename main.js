@@ -30,8 +30,6 @@ var App = {
 
 $(function() {
 
-
-
 	var mainView = new App.View.Main();
 
 });

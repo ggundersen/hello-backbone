@@ -1,6 +1,11 @@
-.done {
-	color: #aaa;
-}
-table td.task {
-	width: 300px;
+#overlay {
+	border: 1px solid #000;
+	display: none;
+	height: 100%;
+	left: 50%;
+	position: absolute;
+	margin-left: -100px;
+	top: 0;
+	width: 200px;
+	z-index: 1000;
 }

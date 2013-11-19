@@ -15,22 +15,16 @@ App.View.Main = Backbone.View.extend({
 	// `el` is the DOM node that, upon instantion, is bound to
 	// View instance. The important point is that we are
 	// separating the logic of the application from the DOM.
-	el: 'body',
+	el: '#content',
 
 	events: {
-		//'click button#add': 'addItem'
+		'click button#add': 'addGiver'
 	},
 
 	// `initialize` is called upon instantiation of the View.
 	initialize: function() {
-
 		this.collection = new App.Collection.Givers();
-
-		// `bind` binds an `add` method to `this.appendItem`.
-		// Now we can say `this.collection.add()` and it will
-		// call `this.appendItem`.
-		// => this.collection.bind('add', this.appendItem);
-		
+		this.collection.bind('add', this.appendGiver);		
 		this.render();
 	},
 
@@ -44,54 +38,43 @@ App.View.Main = Backbone.View.extend({
 
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
-			'<button id="add">+</button>' +
+			'<button id="add">Add giver</button>' +
 			'<input id="input"></input>' +
 			'<table></table>'
 		);
-
-		// Pass in every item in the collection (every model)
-		// into `appendItem`. But why do we do this? Just in case
-		// the collection is not empty. It is, for this tutorial,
-		// meaningless.
-		//_(this.collection.models).each(function(item) {
-		//	self.appendItem(item);
-		//}, this);
 	},
 
-	// `addItem` is bound to the click event of the #add button.
-	// It increments the counter and instantiates a new `Item`
-	// (which is just a model) `item` and calls `set`, passing in
-	// a default object with more data. Remember, this is just
-	// modifying the model. It has nothing to do with the DOM.
-	/*addItem: function() {
-		var item,
+	addGiver: function() {
+
+		var setup = new App.View.Setup();
+		setup.render();
+		/*var item,
 			input = $('#input').val();
 
-		if ( !input ) {
-			alert('Please add something to do');
-		} else {
-			this.counter++;
-
-			// Every time `addItem` is called, a new `Item` model is
-			// instantiated.
-			item = new Item();
-
-			// `set` must be a built-in method for models. This 
-			// passes in an object which overrides the model's
-			// `defaults` object.
-			item.set({
-				text: input
+		if ( this.validInput ) {
+			giver = new App.Model.Giver();
+			giver.set({
+				name: input
 			});
-
-			// Adding to the collection by calling `add` is really,
-			// in this case, calling `appendItem` with the
-			// appropriate model data.
-			this.collection.add(item);
-
-			// Clear input
+			this.collection.add(giver);
 			$('#input').val('');
 		}
+
+		this.renderGiver();*/
 	},
+
+	appendGiver: function(giver) {
+		var giverView = new App.View.Giver({
+			model: giver
+		});
+
+		$('table', this.el).append(giverView.render().el);
+	},
+
+	validInput: function(str) {
+	}
+
+	/*
 
 	appendItem: function(item){
 		var itemView = new ItemView({
