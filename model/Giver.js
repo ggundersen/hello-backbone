@@ -11,7 +11,7 @@
  * persistence, etc.'
  * --------------------------------------------------------------- */
 
-var Giver = Backbone.Model.extend({
+App.Model.Giver = Backbone.Model.extend({
 	defaults: {
 		age: null,
 		gender: null,

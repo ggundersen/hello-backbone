@@ -1,5 +1,3 @@
-
-
 /* View
  *
  * 'Backbone Views are almost more convention than they are actual
@@ -12,41 +10,27 @@
  * react to specific changes in the state of your models.'
  * --------------------------------------------------------------- */
 
-// `ListView` is the view of the list. Think about how this is
-// fundamentally separated from `ItemView`. We can dramatically
-// change how we model items without effecting `Listview`.
-var MainView = Backbone.View.extend({
+App.View.Main = Backbone.View.extend({
 
 	// `el` is the DOM node that, upon instantion, is bound to
 	// View instance. The important point is that we are
 	// separating the logic of the application from the DOM.
-	el: $('body'),
+	el: 'body',
 
 	events: {
-		'click button#add': 'addItem'
+		//'click button#add': 'addItem'
 	},
 
 	// `initialize` is called upon instantiation of the View.
 	initialize: function() {
 
-		_.bindAll(this, 'render', 'addItem', 'appendItem');
-
-		// `new List()` instantiates a new Backbone Collection,
-		// with its model property set to `Item`. Note that
-		// `this.collection` refers to this view's particular
-		// collection. Can they have more than one?
-		this.collection = new List();
+		this.collection = new App.Collection.Givers();
 
 		// `bind` binds an `add` method to `this.appendItem`.
 		// Now we can say `this.collection.add()` and it will
 		// call `this.appendItem`.
-		this.collection.bind('add', this.appendItem);
-
-		// Since `initialize` is called immediately, this cannot 
-		// be accessed excess through `addItem`.
-		this.counter = 0;
-
-		// See `render`.			
+		// => this.collection.bind('add', this.appendItem);
+		
 		this.render();
 	},
 
@@ -56,13 +40,10 @@ var MainView = Backbone.View.extend({
 	// Basically, it builds a DOM-level unordered list from data
 	// stored in models.
 	render: function() {
-		// Store a reference to `this` since it needs to be
-		// referenced in `each`.
-		var self = this;
+		var that = this;
 
-		// `render` is interacts with the DOM view `el`.
 		$(this.el).append(
-			'<h3>To-do List</h3>' +
+			'<h3>White Elephant</h3>' +
 			'<button id="add">+</button>' +
 			'<input id="input"></input>' +
 			'<table></table>'
@@ -82,7 +63,7 @@ var MainView = Backbone.View.extend({
 	// (which is just a model) `item` and calls `set`, passing in
 	// a default object with more data. Remember, this is just
 	// modifying the model. It has nothing to do with the DOM.
-	addItem: function() {
+	/*addItem: function() {
 		var item,
 			input = $('#input').val();
 
@@ -122,6 +103,6 @@ var MainView = Backbone.View.extend({
 		// to the specific DOM element, the <tr> tag in
 		// `ItemView`.
 		$('table', this.el).append(itemView.render().el);
-	}
+	}*/
 
 });

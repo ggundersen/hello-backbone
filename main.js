@@ -22,16 +22,16 @@
  *     and views. Controllers do not exist in Backbone.   
  */
 
-(function($){
+var App = {
+	Model: {},
+	Collection: {},
+	View: {}
+};
 
-	// I have no idea what this does.
-	Backbone.sync = function(method, model, success, error){
-		success();
-	};
+$(function() {
 
-	// `listView` is an instantiation of `ListView`. If this was not
-	// instantiated, then the list would simply not appear. Think of
-	// 
-	var listView = new ListView();
 
-})(jQuery);
+
+	var mainView = new App.View.Main();
+
+});
