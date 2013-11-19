@@ -13,9 +13,9 @@
 App.View.Main = Backbone.View.extend({
 
 	// `el` is the DOM node that, upon instantion, is bound to
-	// View instance. The important point is that we are
+	// view instance. The important point is that we are
 	// separating the logic of the application from the DOM.
-	el: '#content',
+	el: $('#content'),
 
 	events: {
 		'click button#add': 'addGiver'
@@ -28,15 +28,8 @@ App.View.Main = Backbone.View.extend({
 		this.render();
 	},
 
-	// `render` builds a simple list with an 'add' button. It
-	// iterates over every item (model) in the view's collection
-	// and applies that item as an argument to `appendItem`.
-	// Basically, it builds a DOM-level unordered list from data
-	// stored in models.
 	render: function() {
-		var that = this;
-
-		$(this.el).append(
+		this.el.append(
 			'<h3>White Elephant</h3>' +
 			'<button id="add">Add giver</button>' +
 			'<input id="input"></input>' +
@@ -45,47 +38,9 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	addGiver: function() {
-
-		var setup = new App.View.Setup();
-		setup.render();
-		/*var item,
-			input = $('#input').val();
-
-		if ( this.validInput ) {
-			giver = new App.Model.Giver();
-			giver.set({
-				name: input
-			});
-			this.collection.add(giver);
-			$('#input').val('');
-		}
-
-		this.renderGiver();*/
+		var inputGiver = new App.View.InputGiver();
+		this.el.append(inputGiver.render().el);
+		$(inputGiver.render().el).show();
 	},
-
-	appendGiver: function(giver) {
-		var giverView = new App.View.Giver({
-			model: giver
-		});
-
-		$('table', this.el).append(giverView.render().el);
-	},
-
-	validInput: function(str) {
-	}
-
-	/*
-
-	appendItem: function(item){
-		var itemView = new ItemView({
-			model: item
-		});
-
-		// We can call `...render().el` because `itemView`'s
-		// `render` method returns `this`. Thus, `this.el` refers
-		// to the specific DOM element, the <tr> tag in
-		// `ItemView`.
-		$('table', this.el).append(itemView.render().el);
-	}*/
 
 });
