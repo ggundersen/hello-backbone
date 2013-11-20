@@ -21,7 +21,6 @@ App.View.Main = Backbone.View.extend({
 		'click button#add': 'addGiver'
 	},
 
-	// `initialize` is called upon instantiation of the View.
 	initialize: function() {
 		this.collection = new App.Collection.Givers();
 		this.collection.bind('add', this.appendGiver);		

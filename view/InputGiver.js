@@ -5,21 +5,31 @@ App.View.InputGiver = Backbone.View.extend({
 	tagName: 'div',
 
 	events: {
-		'click button#close': 'closeModal'
+		'click input.btn-submit' : 'submitForm',
+		'click button#close'  : 'closeModal'
 	},
 
 	render: function() {
-		this.el.innerHTML = '' +
+		$(this.el).html(
 			'<div>' +
 				'<p>Add a user.</p>' +
-				'<button id="close">Close</button>' +
-			'</div>';
+				'<form>' +
+					'<input></input>' +
+					'<input type="submit" class="btn-submit">Add giver</input>' +
+				'</form>' +
+				'<button id="close">x</button>' +
+			'</div>');
 		return this;
 	},
 
 	closeModal: function() {
 		console.log('hey');
-		//$('#overlay').hide();
+		$(this.el).hide();
+	},
+
+	submitForm: function(e) {
+		e.preventDefault();
+		console.log('submit');
 	}
 
 });
