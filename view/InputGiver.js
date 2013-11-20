@@ -5,8 +5,8 @@ App.View.InputGiver = Backbone.View.extend({
 	tagName: 'div',
 
 	events: {
-		'click input.btn-submit' : 'submitForm',
-		'click button.btn-close'  : 'closeModal'
+		'click input.btn-submit' : 'handleForm',
+		'click button.btn-close' : 'closeModal'
 	},
 
 	render: function() {
@@ -31,8 +31,33 @@ App.View.InputGiver = Backbone.View.extend({
 		$(this.el).hide();
 	},
 
-	submitForm: function(e) {
+	getFormData: function() {
+		return {
+			name: $('input.name').val(),
+			age: $('input.age').val(),
+			gender: $('input.gender').val()
+		};
+	},
+
+	handleForm: function(e) {
 		e.preventDefault();
+
+		var data = this.getFormData();
+
+		if (true /*valid*/) {
+			// closeModal();
+			// submitForm();
+		} else {
+
+		}
+	},
+
+	submitForm: function() {
+
+	},
+
+	validData: function(obj) {
+
 	}
 
 });
