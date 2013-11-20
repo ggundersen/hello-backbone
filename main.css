@@ -13,6 +13,9 @@ body {
 	width: 100%;
 	z-index: 1000;
 }
+#overlay h4 {
+	text-decoration: underline;
+}
 #overlay div {
 	background-color: #fff;
 	border: 1px solid #000;
@@ -20,4 +23,11 @@ body {
 	padding: 15px;
 	text-align: center;
 	width: 300px;
+}
+#overlay label {
+	display: block;
+}
+#overlay .btn-submit {
+	display: block;
+	margin: 0 auto;
 }
