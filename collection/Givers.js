@@ -10,5 +10,11 @@
  * --------------------------------------------------------------- */
 
 App.Collection.Givers = Backbone.Collection.extend({
-	model: App.Model.Giver
+
+	model: App.Model.Giver,
+
+	this.addGiver: function() {
+		this.trigger('addGiver');
+	}
+
 });

@@ -23,8 +23,15 @@ App.View.Main = Backbone.View.extend({
 
 	initialize: function() {
 		this.collection = new App.Collection.Givers();
-		this.collection.on('change', this.render, this);
-		console.log('render');
+
+		_.extend(this.collection, Backbone.Events);
+
+		this.collection.bind('giverCreated', this.appendGiver, this);
+		/* createdGiver) {
+			console.log('collection trigged?');
+			this.appendGiver(createdGiver);
+		});*/
+		//this.collection.bind('add', this.appendItem);
 		this.render();
 	},
 
@@ -44,5 +51,15 @@ App.View.Main = Backbone.View.extend({
 		$(this.el).append(inputGiver.render().el);
 		$(inputGiver.render().el).show();
 	},
+
+	appendGiver: function(obj) {
+		console.log('appendGiver');
+		console.log(obj);
+		$('table').append(
+			'<tr>' +
+				'<td></td>' +
+			'</tr>'
+		);
+	}
 
 });

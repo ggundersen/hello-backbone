@@ -24,7 +24,8 @@ App.View.InputGiver = Backbone.View.extend({
 					'<input type="submit" class="btn-submit" value="Add"></input>' +
 					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
-			'</div>');
+			'</div>'
+		);
 		return this;
 	},
 
@@ -35,21 +36,21 @@ App.View.InputGiver = Backbone.View.extend({
 	getFormData: function() {
 		var result = {
 			name: $('input.name').val(),
-			age: $('input.age').val(),
-			sex: $('input.gender').val()
+			age:  $('input.age').val(),
+			sex:  $('input.gender').val() // defaults to female
 		};
 
 		if (result.name === '') {
 			alert('Please provide a name');
 		} else if (result.age !== '' && isNaN(result.age)) {
-			alert("'Age' must be a number");
+			alert("'Age' must be a whole number");
 		}
 
 		return result;
 	},
 
-	handleForm: function(e) {
-		e.preventDefault();
+	handleForm: function(evt) {
+		evt.preventDefault();
 
 		var data = this.getFormData(),
 			isValidData = this.validateData(data);
@@ -59,7 +60,7 @@ App.View.InputGiver = Backbone.View.extend({
 		} else {
 			var giver = new App.Model.Giver(data);
 			this.collection.add(giver);
-			this.trigger('change');
+			this.trigger('giverCreated', giver);
 			this.closeModal();
 		}
 
