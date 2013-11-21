@@ -15,7 +15,7 @@ App.View.Main = Backbone.View.extend({
 	// `el` is the DOM node that, upon instantion, is bound to
 	// view instance. The important point is that we are
 	// separating the logic of the application from the DOM.
-	el: $('#content'),
+	el: '#content',
 
 	events: {
 		'click button#add': 'addGiver'
@@ -23,12 +23,13 @@ App.View.Main = Backbone.View.extend({
 
 	initialize: function() {
 		this.collection = new App.Collection.Givers();
-		//this.collection.bind('add', this.appendGiver);		
+		this.collection.on('change', this.render, this);
+		console.log('render');
 		this.render();
 	},
 
 	render: function() {
-		this.el.append(
+		$(this.el).append(
 			'<h3>White Elephant</h3>' +
 			'<button id="add">Add giver</button>' +
 			'<input id="input"></input>' +
@@ -40,7 +41,7 @@ App.View.Main = Backbone.View.extend({
 		var inputGiver = new App.View.InputGiver({
 			collection: this.collection
 		});
-		this.el.append(inputGiver.render().el);
+		$(this.el).append(inputGiver.render().el);
 		$(inputGiver.render().el).show();
 	},
 

@@ -59,14 +59,11 @@ App.View.InputGiver = Backbone.View.extend({
 		} else {
 			var giver = new App.Model.Giver(data);
 			this.collection.add(giver);
+			this.trigger('change');
 			this.closeModal();
 		}
 
 		return;
-	},
-
-	submitForm: function() {
-
 	},
 
 	validateData: function(obj) {
