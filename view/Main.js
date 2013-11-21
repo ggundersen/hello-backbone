@@ -23,7 +23,7 @@ App.View.Main = Backbone.View.extend({
 
 	initialize: function() {
 		this.collection = new App.Collection.Givers();
-		this.collection.bind('add', this.appendGiver);		
+		//this.collection.bind('add', this.appendGiver);		
 		this.render();
 	},
 
@@ -37,7 +37,9 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	addGiver: function() {
-		var inputGiver = new App.View.InputGiver();
+		var inputGiver = new App.View.InputGiver({
+			collection: this.collection
+		});
 		this.el.append(inputGiver.render().el);
 		$(inputGiver.render().el).show();
 	},

@@ -18,8 +18,9 @@ App.View.InputGiver = Backbone.View.extend({
 					'<input class="name"></input>' +
 					'<label>Age <span class="optional">(optional)</span></label>' +
 					'<input class="age"></input>' +
-					'<label>Gender <span class="optional">(optional)</span></label>' +
-					'<input class="gender"></input>' +
+					'<label>Sex <span class="optional">(optional)</span></label>' +
+					'<input type="radio" name="sex" class="gender" value="female">Female</input>' +
+					'<input type="radio" name="sex" class="gender" value="male">Male</input>' +
 					'<input type="submit" class="btn-submit" value="Add"></input>' +
 					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
@@ -32,28 +33,51 @@ App.View.InputGiver = Backbone.View.extend({
 	},
 
 	getFormData: function() {
-		return {
+		var result = {
 			name: $('input.name').val(),
 			age: $('input.age').val(),
-			gender: $('input.gender').val()
+			sex: $('input.gender').val()
 		};
+
+		if (result.name === '') {
+			alert('Please provide a name');
+		} else if (result.age !== '' && isNaN(result.age)) {
+			alert("'Age' must be a number");
+		}
+
+		return result;
 	},
 
 	handleForm: function(e) {
 		e.preventDefault();
 
-		var data = this.getFormData();
+		var data = this.getFormData(),
+			isValidData = this.validateData(data);
 
-		if (true /*valid*/) {
-			// closeModal();
-			// submitForm();
+		if (!isValidData) {
+			this.closeModal();
 		} else {
-
+			var giver = new App.Model.Giver(data);
+			this.collection.add(giver);
+			this.closeModal();
 		}
+
+		return;
 	},
 
 	submitForm: function() {
 
+	},
+
+	validateData: function(obj) {
+		if (obj.name === '') {
+			alert('Please provide a name');
+			return;
+		} else if (obj.age !== '' && isNaN(obj.age)) {
+			alert("'Age' must be a number");
+			return;
+		}
+		return true;
 	},
 
 	validData: function(obj) {
