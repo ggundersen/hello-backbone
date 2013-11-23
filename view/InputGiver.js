@@ -53,6 +53,8 @@ App.View.InputGiver = Backbone.View.extend({
 	},
 
 	handleForm: function(evt) {
+		var that = this;
+
 		evt.preventDefault();
 
 		var giver,
@@ -61,11 +63,10 @@ App.View.InputGiver = Backbone.View.extend({
 		if ( this.isValidData(data) ) {
 			giver = new App.Model.Giver(data);
 			this.collection.add(giver);
-			this.trigger('giverCreated', giver);
 
 			// For some reason, calling `closeModel` here throws an
 			// error. Why?
-			$(this.el).hide();
+			$(that.el).hide();
 		}
 	},
 

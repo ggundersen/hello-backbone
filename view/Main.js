@@ -37,7 +37,7 @@ App.View.Main = Backbone.View.extend({
 			'<table>' +
 				'<thead>' +
 					'<tr>' +
-						'<td>Name</td><td>Age</td><td></td>' +
+						'<td>Name</td><td>Age</td><td>Sex</td>' +
 					'</tr>' +
 				'</thead>' +
 
@@ -55,7 +55,9 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	appendGiver: function() {
+		console.log(this.collection);
 		var lastModel = this.collection.at(this.collection.length - 1);
+
 		$('table').append(
 			'<tr>' +
 				'<td>' + lastModel.attributes.name + '</td>' +
