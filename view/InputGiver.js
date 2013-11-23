@@ -7,17 +7,12 @@ App.View.InputGiver = Backbone.View.extend({
 		'click button.btn-close' : 'closeModal'
 	},
 
-	parentEl: this.parentEl,
-
 	initialize: function(options) {
 		this.parentEl = options.parentEl;
 		this.render();
 	},
 
 	render: function() {
-		/*$(this.el).append(inputGiver.render().el);
-		$(inputGiver.render().el).show();*/
-
 		// Setting the HTML of `this.el`, div#overlay.
 		$(this.el).html(
 			'<div>' +
@@ -56,29 +51,29 @@ App.View.InputGiver = Backbone.View.extend({
 	handleForm: function(evt) {
 		evt.preventDefault();
 
-		var data = this.getFormData();
+		var giver,
+			data = this.getFormData();
 
-		if ( this.validateData(data) ) {
-			var giver = new App.Model.Giver(data);
-			this.collection.add(giver);
+		if ( this.isValidData(data) ) {
+			giver = new App.Model.Giver(data);
+			this.collection.add(giver);//.addGiver();
+
+			console.log(this.collection);
+
 			this.trigger('giverCreated', giver);
 			this.closeModal();
 		}
 	},
 
-	validateData: function(obj) {
+	isValidData: function(obj) {
 		if (obj.name === '') {
 			alert('Please provide a name');
-			return;
+			return false;
 		} else if (obj.age !== '' && isNaN(obj.age)) {
 			alert("'Age' must be a number");
-			return;
+			return false;
 		}
 		return true;
-	},
-
-	validData: function(obj) {
-
 	}
 
 });
