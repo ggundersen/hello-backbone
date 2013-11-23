@@ -18,38 +18,34 @@ App.View.Main = Backbone.View.extend({
 	el: '#content',
 
 	events: {
-		'click button#add': 'addGiver'
+		'click button.btn-add': 'addGiver'
 	},
 
 	initialize: function() {
 		this.collection = new App.Collection.Givers();
-
-		_.extend(this.collection, Backbone.Events);
-
-		this.collection.bind('giverCreated', this.appendGiver, this);
-		/* createdGiver) {
-			console.log('collection trigged?');
-			this.appendGiver(createdGiver);
-		});*/
-		//this.collection.bind('add', this.appendItem);
 		this.render();
 	},
 
 	render: function() {
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
-			'<button id="add">Add giver</button>' +
-			'<input id="input"></input>' +
+			'<button class="btn-add">Add giver</button>' +
+			'<input class="input"></input>' +
 			'<table></table>'
 		);
 	},
 
 	addGiver: function() {
-		var inputGiver = new App.View.InputGiver({
+		var that = this;
+		/*var inputGiver = new App.View.InputGiver({
 			collection: this.collection
 		});
 		$(this.el).append(inputGiver.render().el);
-		$(inputGiver.render().el).show();
+		$(inputGiver.render().el).show();*/
+		new App.View.InputGiver({
+			collection: this.collection,
+			parentEl: that.el
+		});
 	},
 
 	appendGiver: function(obj) {

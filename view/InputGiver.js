@@ -2,14 +2,23 @@ App.View.InputGiver = Backbone.View.extend({
 
 	id: 'overlay',
 
-	tagName: 'div',
-
 	events: {
 		'click input.btn-submit' : 'handleForm',
 		'click button.btn-close' : 'closeModal'
 	},
 
+	parentEl: this.parentEl,
+
+	initialize: function(options) {
+		this.parentEl = options.parentEl;
+		this.render();
+	},
+
 	render: function() {
+		/*$(this.el).append(inputGiver.render().el);
+		$(inputGiver.render().el).show();*/
+
+		// Setting the HTML of `this.el`, div#overlay.
 		$(this.el).html(
 			'<div>' +
 				'<h4>Add a user.</h4>' +
@@ -26,7 +35,10 @@ App.View.InputGiver = Backbone.View.extend({
 				'</form>' +
 			'</div>'
 		);
-		return this;
+
+		// Adding div#overlay to div#content, which was passed into
+		// `initialize`.
+		$(this.parentEl).append( $(this.el).show() );
 	},
 
 	closeModal: function() {
@@ -34,37 +46,24 @@ App.View.InputGiver = Backbone.View.extend({
 	},
 
 	getFormData: function() {
-		var result = {
+		return result = {
 			name: $('input.name').val(),
 			age:  $('input.age').val(),
 			sex:  $('input.gender').val() // defaults to female
 		};
-
-		if (result.name === '') {
-			alert('Please provide a name');
-		} else if (result.age !== '' && isNaN(result.age)) {
-			alert("'Age' must be a whole number");
-		}
-
-		return result;
 	},
 
 	handleForm: function(evt) {
 		evt.preventDefault();
 
-		var data = this.getFormData(),
-			isValidData = this.validateData(data);
+		var data = this.getFormData();
 
-		if (!isValidData) {
-			this.closeModal();
-		} else {
+		if ( this.validateData(data) ) {
 			var giver = new App.Model.Giver(data);
 			this.collection.add(giver);
 			this.trigger('giverCreated', giver);
 			this.closeModal();
 		}
-
-		return;
 	},
 
 	validateData: function(obj) {
