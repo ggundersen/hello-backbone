@@ -23,8 +23,8 @@ App.View.InputGiver = Backbone.View.extend({
 					'<label>Age <span class="optional">(optional)</span></label>' +
 					'<input class="age"></input>' +
 					'<label>Sex <span class="optional">(optional)</span></label>' +
-					'<input type="radio" name="sex" class="gender" value="female">Female</input>' +
-					'<input type="radio" name="sex" class="gender" value="male">Male</input>' +
+					'<input type="radio" name="sex" class="sex" value="female">Female</input>' +
+					'<input type="radio" name="sex" class="sex" value="male">Male</input>' +
 					'<input type="submit" class="btn-submit" value="Add"></input>' +
 					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
@@ -36,15 +36,18 @@ App.View.InputGiver = Backbone.View.extend({
 		$(this.parentEl).append( $(this.el).show() );
 	},
 
-	closeModal: function() {
+	closeModal: function(evt) {
+		// `closeModal` clears the table without this line. Why?
+		evt.preventDefault();
+		console.log(this.el);
 		$(this.el).hide();
 	},
 
 	getFormData: function() {
-		return result = {
+		return {
 			name: $('input.name').val(),
-			age:  $('input.age').val(),
-			sex:  $('input.gender').val() // defaults to female
+			age: $('input.age').val(),
+			sex: $('input.sex').val() // defaults to female
 		};
 	},
 
@@ -58,7 +61,7 @@ App.View.InputGiver = Backbone.View.extend({
 			giver = new App.Model.Giver(data);
 			this.collection.add(giver);
 			this.trigger('giverCreated', giver);
-			this.closeModal();
+			//this.closeModal();
 		}
 	},
 

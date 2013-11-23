@@ -34,7 +34,14 @@ App.View.Main = Backbone.View.extend({
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
 			'<button class="btn-add">Add giver</button>' +
-			'<table></table>'
+			'<table>' +
+				'<thead>' +
+					'<tr>' +
+						'<td>Name</td><td>Age</td><td></td>' +
+					'</tr>' +
+				'</thead>' +
+
+			'</table>'
 		);
 	},
 
@@ -48,12 +55,20 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	appendGiver: function() {
-		console.log(this.collection.at(this.collection.length - 1));
-		/*$('table').append(
+		console.log('--------------');
+		console.log(this.collection);
+		console.log(this.collection.length);
+		var lastModel = this.collection.at(this.collection.length - 1);
+		console.log(lastModel);
+		console.log(lastModel.attributes.name);
+
+		$('table').append(
 			'<tr>' +
-				'<td></td>' +
+				'<td>' + lastModel.attributes.name + '</td>' +
+				'<td>' + lastModel.attributes.age + '</td>' +
+				'<td>' + lastModel.attributes.sex + '</td>' +
 			'</tr>'
-		);*/
+		);
 	}
 
 });
