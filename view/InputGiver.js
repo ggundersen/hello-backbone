@@ -39,15 +39,16 @@ App.View.InputGiver = Backbone.View.extend({
 	closeModal: function(evt) {
 		// `closeModal` clears the table without this line. Why?
 		evt.preventDefault();
-		console.log(this.el);
 		$(this.el).hide();
 	},
 
 	getFormData: function() {
+		var sex = $('input:radio[name=sex]:checked').val();
+
 		return {
 			name: $('input.name').val(),
 			age: $('input.age').val(),
-			sex: $('input.sex').val() // defaults to female
+			sex: sex === undefined ? 'female' : sex
 		};
 	},
 
@@ -61,7 +62,10 @@ App.View.InputGiver = Backbone.View.extend({
 			giver = new App.Model.Giver(data);
 			this.collection.add(giver);
 			this.trigger('giverCreated', giver);
-			//this.closeModal();
+
+			// For some reason, calling `closeModel` here throws an
+			// error. Why?
+			$(this.el).hide();
 		}
 	},
 
