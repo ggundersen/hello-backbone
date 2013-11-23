@@ -56,10 +56,7 @@ App.View.InputGiver = Backbone.View.extend({
 
 		if ( this.isValidData(data) ) {
 			giver = new App.Model.Giver(data);
-			this.collection.add(giver);//.addGiver();
-
-			console.log(this.collection);
-
+			this.collection.add(giver);
 			this.trigger('giverCreated', giver);
 			this.closeModal();
 		}

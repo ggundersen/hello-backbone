@@ -23,7 +23,10 @@ App.View.Main = Backbone.View.extend({
 
 	initialize: function() {
 		this.collection = new App.Collection.Givers();
-		this.collection.on('add', this.appendGiver);
+
+		// If we do not pass in `this`, then `this` will refer to 
+		// the collection in the callback, `appendGiver`.
+		this.collection.on('add', this.appendGiver, this);
 		this.render();
 	},
 
@@ -31,7 +34,6 @@ App.View.Main = Backbone.View.extend({
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
 			'<button class="btn-add">Add giver</button>' +
-			'<input class="input"></input>' +
 			'<table></table>'
 		);
 	},
@@ -40,15 +42,14 @@ App.View.Main = Backbone.View.extend({
 		var that = this;
 
 		new App.View.InputGiver({
-			collection: this.collection,
+			collection: that.collection,
 			parentEl: that.el
 		});
 	},
 
-	appendGiver: function(obj) {
-		console.log('appendGiver');
-		/*console.log(obj);
-		$('table').append(
+	appendGiver: function() {
+		console.log(this.collection.at(this.collection.length - 1));
+		/*$('table').append(
 			'<tr>' +
 				'<td></td>' +
 			'</tr>'

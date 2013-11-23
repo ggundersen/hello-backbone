@@ -12,6 +12,7 @@
  * --------------------------------------------------------------- */
 
 App.Model.Giver = Backbone.Model.extend({
+
 	defaults: {
 		age: null,
 		giver: null,
@@ -19,4 +20,5 @@ App.Model.Giver = Backbone.Model.extend({
 		receiver: null,
 		sex: null
 	}
+
 });
