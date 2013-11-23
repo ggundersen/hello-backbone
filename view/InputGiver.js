@@ -37,10 +37,19 @@ App.View.InputGiver = Backbone.View.extend({
 	},
 
 	closeModal: function(evt) {
-		// `closeModal` clears the table without this line. Why?
 		evt.preventDefault();
+
+		// `closeModal` clears the table without this line. Why?
+		//evt.preventDefault();
 		$(this.el).hide();
 	},
+
+	destroyView: function() {
+		this.undelegateEvents();
+		this.$el.removeData().unbind(); 
+		this.remove();  
+		Backbone.View.prototype.remove.call(this);
+    },
 
 	getFormData: function() {
 		var sex = $('input:radio[name=sex]:checked').val();
@@ -53,15 +62,16 @@ App.View.InputGiver = Backbone.View.extend({
 	},
 
 	handleForm: function(evt) {
-		var that = this;
-
 		evt.preventDefault();
 
-		var giver,
-			data = this.getFormData();
+		var data = this.getFormData(),
+			giver,
+			that = this;
 
 		if ( this.isValidData(data) ) {
+			console.log(data);
 			giver = new App.Model.Giver(data);
+
 			this.collection.add(giver);
 
 			// For some reason, calling `closeModel` here throws an

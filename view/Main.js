@@ -48,14 +48,13 @@ App.View.Main = Backbone.View.extend({
 	addGiver: function() {
 		var that = this;
 
-		new App.View.InputGiver({
+		this.inputGiver = new App.View.InputGiver({
 			collection: that.collection,
 			parentEl: that.el
 		});
 	},
 
 	appendGiver: function() {
-		console.log(this.collection);
 		var lastModel = this.collection.at(this.collection.length - 1);
 
 		$('table').append(
@@ -65,6 +64,10 @@ App.View.Main = Backbone.View.extend({
 				'<td>' + lastModel.attributes.sex + '</td>' +
 			'</tr>'
 		);
+
+		// Maybe this is too expensive? But for now, it prevents an
+		// unlimited number of InputGiver views from being created.
+		this.inputGiver.destroyView();
 	}
 
 });
