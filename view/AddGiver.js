@@ -1,6 +1,6 @@
-App.View.InputGiver = Backbone.View.extend({
+App.View.AddGiver = Backbone.View.extend({
 
-	id: 'overlay',
+	id: 'add-giver',
 
 	events: {
 		'click input.btn-submit' : 'handleForm',
@@ -10,7 +10,7 @@ App.View.InputGiver = Backbone.View.extend({
 	initialize: function(options) {
 		this.parentEl = options.parentEl;
 		
-		// Setting the HTML of `this.el`, div#overlay.
+		// Setting the HTML of `this.el`, div#add-giver.
 		$(this.el).html(
 			'<div>' +
 				'<h4>Add a user.</h4>' +
@@ -28,9 +28,13 @@ App.View.InputGiver = Backbone.View.extend({
 			'</div>'
 		);
 
-		// Adding div#overlay to div#content, which was passed into
+		// Adding div#add-giver to div#content, which was passed into
 		// `initialize`.
 		$(this.parentEl).append(this.el);
+	},
+
+	render: function() {
+		$(this.el).show();
 	},
 
 	cancelView: function(evt) {
@@ -62,11 +66,6 @@ App.View.InputGiver = Backbone.View.extend({
 		}
 	},
 
-	resetView: function() {
-		$(this.el).hide();
-		$(this.el).find('form')[0].reset();
-	},
-
 	isValidData: function(obj) {
 		if (obj.name === '') {
 			alert('Please provide a name');
@@ -76,10 +75,11 @@ App.View.InputGiver = Backbone.View.extend({
 			return false;
 		}
 		return true;
-	},
+	}
 
-	render: function() {
-		$(this.el).show();
+	resetView: function() {
+		$(this.el).hide();
+		$(this.el).find('form')[0].reset();
 	}
 
 });

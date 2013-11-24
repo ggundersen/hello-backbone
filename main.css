@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 }
-#overlay {
+#add-giver {
 	background: #000;
 	display: none;
 	height: 100%;
@@ -13,10 +13,10 @@ body {
 	width: 100%;
 	z-index: 1000;
 }
-#overlay h4 {
+#add-giver h4 {
 	text-decoration: underline;
 }
-#overlay div {
+#add-giver div {
 	background-color: #fff;
 	border: 1px solid #000;
 	margin: 100px auto;
@@ -24,10 +24,10 @@ body {
 	text-align: center;
 	width: 300px;
 }
-#overlay label {
+#add-giver label {
 	display: block;
 }
-#overlay .btn-submit {
+#add-giver .btn-submit {
 	display: block;
 	margin: 0 auto;
 }

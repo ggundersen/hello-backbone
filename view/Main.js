@@ -12,67 +12,53 @@
 
 App.View.Main = Backbone.View.extend({
 
-	// `el` is the DOM node that, upon instantion, is bound to
+	// `el` is the DOM node that, upon instantion, is bound to the
 	// view instance. The important point is that we are
 	// separating the logic of the application from the DOM.
 	el: '#content',
 
 	events: {
-		'click button.btn-add': 'addGiver'
+		'click button.btn-add-giver': 'openAddGiverView',
+		'click button.btn-swap-givers': 'openSwapGiversView'
 	},
 
 	initialize: function() {
 		this.collection = new App.Collection.Givers();
-
-		// If we do not pass in `this`, then `this` will refer to 
-		// the collection in the callback, `appendGiver`.
-		this.collection.on('add', this.appendGiver, this);
 		this.render();
 
 		var that = this;
 
-		// Instantiate this view but do not render it in its
-		// `initialize` function.
-		this.inputGiver = new App.View.InputGiver({
+		this.participantsView = new App.View.Participants({
 			collection: that.collection,
 			parentEl: that.el
 		});
 
+		// Instantiate these views but do not render them yet.
+		this.addGiverView = new App.View.AddGiver({
+			collection: that.collection,
+			parentEl: that.el
+		});
+
+		this.swapGiversView = new App.View.SwapGivers({
+			collection: that.collection,
+			parentEl: that.el
+		});
 	},
 
 	render: function() {
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
-			'<button class="btn-add">Add giver</button>' +
-			'<table>' +
-				'<thead>' +
-					'<tr>' +
-						'<td>Name</td><td>Age</td><td>Sex</td>' +
-					'</tr>' +
-				'</thead>' +
-
-			'</table>'
+			'<button class="btn-add-giver">Add giver</button>' +
+			'<button class="btn-swap-givers">Assign receivers to givers</button>'
 		);
 	},
 
-	addGiver: function() {
-		this.inputGiver.render();
+	openAddGiverView: function() {
+		this.addGiverView.render();
 	},
 
-	appendGiver: function() {
-		var lastModel = this.collection.at(this.collection.length - 1);
-
-		$('table').append(
-			'<tr>' +
-				'<td>' + lastModel.attributes.name + '</td>' +
-				'<td>' + lastModel.attributes.age + '</td>' +
-				'<td>' + lastModel.attributes.sex + '</td>' +
-			'</tr>'
-		);
-
-		// Maybe this is too expensive? But for now, it prevents an
-		// unlimited number of InputGiver views from being created.
-		//this.inputGiver.destroyView();
+	openSwapGiversView: function() {
+		console.log('swap givers');
 	}
 
 });
