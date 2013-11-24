@@ -4,15 +4,12 @@ App.View.InputGiver = Backbone.View.extend({
 
 	events: {
 		'click input.btn-submit' : 'handleForm',
-		'click button.btn-close' : 'closeModal'
+		'click button.btn-close' : 'cancelView'
 	},
 
 	initialize: function(options) {
 		this.parentEl = options.parentEl;
-		this.render();
-	},
-
-	render: function() {
+		
 		// Setting the HTML of `this.el`, div#overlay.
 		$(this.el).html(
 			'<div>' +
@@ -33,23 +30,13 @@ App.View.InputGiver = Backbone.View.extend({
 
 		// Adding div#overlay to div#content, which was passed into
 		// `initialize`.
-		$(this.parentEl).append( $(this.el).show() );
+		$(this.parentEl).append(this.el);
 	},
 
-	closeModal: function(evt) {
+	cancelView: function(evt) {
 		evt.preventDefault();
-
-		// `closeModal` clears the table without this line. Why?
-		//evt.preventDefault();
-		$(this.el).hide();
+		this.resetView();
 	},
-
-	destroyView: function() {
-		this.undelegateEvents();
-		this.$el.removeData().unbind(); 
-		this.remove();  
-		Backbone.View.prototype.remove.call(this);
-    },
 
 	getFormData: function() {
 		var sex = $('input:radio[name=sex]:checked').val();
@@ -69,15 +56,15 @@ App.View.InputGiver = Backbone.View.extend({
 			that = this;
 
 		if ( this.isValidData(data) ) {
-			console.log(data);
 			giver = new App.Model.Giver(data);
-
 			this.collection.add(giver);
-
-			// For some reason, calling `closeModel` here throws an
-			// error. Why?
-			$(that.el).hide();
+			this.resetView();
 		}
+	},
+
+	resetView: function() {
+		$(this.el).hide();
+		$(this.el).find('form')[0].reset();
 	},
 
 	isValidData: function(obj) {
@@ -89,6 +76,10 @@ App.View.InputGiver = Backbone.View.extend({
 			return false;
 		}
 		return true;
+	},
+
+	render: function() {
+		$(this.el).show();
 	}
 
 });

@@ -28,6 +28,16 @@ App.View.Main = Backbone.View.extend({
 		// the collection in the callback, `appendGiver`.
 		this.collection.on('add', this.appendGiver, this);
 		this.render();
+
+		var that = this;
+
+		// Instantiate this view but do not render it in its
+		// `initialize` function.
+		this.inputGiver = new App.View.InputGiver({
+			collection: that.collection,
+			parentEl: that.el
+		});
+
 	},
 
 	render: function() {
@@ -46,12 +56,7 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	addGiver: function() {
-		var that = this;
-
-		this.inputGiver = new App.View.InputGiver({
-			collection: that.collection,
-			parentEl: that.el
-		});
+		this.inputGiver.render();
 	},
 
 	appendGiver: function() {
@@ -67,7 +72,7 @@ App.View.Main = Backbone.View.extend({
 
 		// Maybe this is too expensive? But for now, it prevents an
 		// unlimited number of InputGiver views from being created.
-		this.inputGiver.destroyView();
+		//this.inputGiver.destroyView();
 	}
 
 });
