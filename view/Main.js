@@ -18,28 +18,27 @@ App.View.Main = Backbone.View.extend({
 	el: '#content',
 
 	events: {
-		'click button.btn-add-giver': 'openAddGiverView',
-		'click button.btn-swap-givers': 'openSwapGiversView'
+		'click button.btn-add-player': 'showAddPlayerWindow',
+		'click button.btn-exchange-names': 'showExchangedPlayersList'
 	},
 
 	initialize: function() {
-		this.collection = new App.Collection.Givers();
+		var that = this;
+		this.collection = new App.Collection.Players();
 		this.render();
 
-		var that = this;
-
-		this.participantsView = new App.View.Participants({
+		this.playersList = new App.View.PlayersList({
 			collection: that.collection,
 			parentEl: that.el
 		});
 
 		// Instantiate these views but do not render them yet.
-		this.addGiverView = new App.View.AddGiver({
+		this.addPlayerWindow = new App.View.AddPlayerWindow({
 			collection: that.collection,
 			parentEl: that.el
 		});
 
-		this.swapGiversView = new App.View.SwapGivers({
+		this.exchangedPlayersList = new App.View.ExchangedPlayersList({
 			collection: that.collection,
 			parentEl: that.el
 		});
@@ -48,17 +47,18 @@ App.View.Main = Backbone.View.extend({
 	render: function() {
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
-			'<button class="btn-add-giver">Add giver</button>' +
-			'<button class="btn-swap-givers">Assign receivers to givers</button>'
+			'<button class="btn-add-player">Add giver</button>' +
+			'<button class="btn-exchange-names">Shuffle</button>'
 		);
 	},
 
-	openAddGiverView: function() {
-		this.addGiverView.render();
+	showAddPlayerWindow: function() {
+		this.addPlayerWindow.render();
 	},
 
-	openSwapGiversView: function() {
-		console.log('swap givers');
+	showExchangedPlayersList: function() {
+		var results = App.Algorithms.ShuffledList(this.collection);
+		this.exchangedPlayersList.render(results);
 	}
 
 });

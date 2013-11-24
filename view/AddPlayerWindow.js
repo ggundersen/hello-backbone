@@ -1,6 +1,6 @@
-App.View.AddGiver = Backbone.View.extend({
+App.View.AddPlayerWindow = Backbone.View.extend({
 
-	id: 'add-giver',
+	id: 'add-player',
 
 	events: {
 		'click input.btn-submit' : 'handleForm',
@@ -10,7 +10,7 @@ App.View.AddGiver = Backbone.View.extend({
 	initialize: function(options) {
 		this.parentEl = options.parentEl;
 		
-		// Setting the HTML of `this.el`, div#add-giver.
+		// Setting the HTML of `this.el`, div#add-player.
 		$(this.el).html(
 			'<div>' +
 				'<h4>Add a user.</h4>' +
@@ -28,7 +28,7 @@ App.View.AddGiver = Backbone.View.extend({
 			'</div>'
 		);
 
-		// Adding div#add-giver to div#content, which was passed into
+		// Adding div#add-player to div#content, which was passed into
 		// `initialize`.
 		$(this.parentEl).append(this.el);
 	},

@@ -9,8 +9,8 @@
  * their models, both in order, and for lookup by id.'
  * --------------------------------------------------------------- */
 
-App.Collection.Givers = Backbone.Collection.extend({
+App.Collection.Players = Backbone.Collection.extend({
 
-	model: App.Model.Giver
+	model: App.Model.Player
 
 });

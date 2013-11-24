@@ -30,7 +30,8 @@
 var App = {
 	Model: {},
 	Collection: {},
-	View: {}
+	View: {},
+	Algorithms: {}
 };
 
 /* Why wait for `document.ready`?
@@ -57,13 +58,3 @@ $(function() {
 	new App.View.Main();
 
 });
-
-
-
-
-
-
-
-
-
-

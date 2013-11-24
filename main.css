@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 }
-#add-giver {
+#add-player {
 	background: #000;
 	display: none;
 	height: 100%;
@@ -13,10 +13,10 @@ body {
 	width: 100%;
 	z-index: 1000;
 }
-#add-giver h4 {
+#add-player h4 {
 	text-decoration: underline;
 }
-#add-giver div {
+#add-player div {
 	background-color: #fff;
 	border: 1px solid #000;
 	margin: 100px auto;
@@ -24,10 +24,10 @@ body {
 	text-align: center;
 	width: 300px;
 }
-#add-giver label {
+#add-player label {
 	display: block;
 }
-#add-giver .btn-submit {
+#add-player .btn-submit {
 	display: block;
 	margin: 0 auto;
 }

@@ -1,4 +1,4 @@
-App.View.Participants = Backbone.View.extend({
+App.View.PlayersList = Backbone.View.extend({
 
 	id: 'participants',
 
@@ -8,9 +8,9 @@ App.View.Participants = Backbone.View.extend({
 		this.parentEl = options.parentEl;
 
 		// If we do not pass in `this`, then `this` will refer to 
-		// the collection in the callback, `appendGiver`, which
+		// the collection in the callback, `appendPlayer`, which
 		// would be the collection itself.
-		this.collection.on('add', this.appendGiver, this);
+		this.collection.on('add', this.appendPlayer, this);
 
 		$(this.el).append(
 			'<thead>' +
@@ -22,7 +22,7 @@ App.View.Participants = Backbone.View.extend({
 		$(this.parentEl).append(this.el);
 	},
 
-	appendGiver: function() {
+	appendPlayer: function() {
 		var lastModel = this.collection.at(this.collection.length - 1);
 
 		$(this.el).append(
@@ -32,6 +32,6 @@ App.View.Participants = Backbone.View.extend({
 				'<td>' + lastModel.attributes.sex + '</td>' +
 			'</tr>'
 		);
-	},
+	}
 
 });
