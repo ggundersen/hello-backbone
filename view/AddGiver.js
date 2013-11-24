@@ -75,7 +75,7 @@ App.View.AddGiver = Backbone.View.extend({
 			return false;
 		}
 		return true;
-	}
+	},
 
 	resetView: function() {
 		$(this.el).hide();
