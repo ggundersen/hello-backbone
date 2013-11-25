@@ -47,7 +47,7 @@ App.View.Main = Backbone.View.extend({
 	render: function() {
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
-			'<button class="btn-add-player">Add giver</button>' +
+			'<button class="btn-add-player">Add player</button>' +
 			'<button class="btn-exchange-names">Shuffle</button>'
 		);
 	},
@@ -58,7 +58,8 @@ App.View.Main = Backbone.View.extend({
 
 	showExchangedPlayersList: function() {
 		var results = App.Algorithms.ShuffledList(this.collection);
-		this.exchangedPlayersList.render(results);
+		console.log(results);
+		//this.exchangedPlayersList.render(results);
 	}
 
 });

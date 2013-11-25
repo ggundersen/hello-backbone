@@ -18,7 +18,6 @@ App.View.ExchangedPlayersList = Backbone.View.extend({
 			'</tr>'
 		);
 		$(this.parentEl).append(this.el);
-		console.log(results);
 	}
 
 });
