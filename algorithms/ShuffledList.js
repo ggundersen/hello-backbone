@@ -1,37 +1,31 @@
 App.Algorithms.ShuffledList = function(collection) {
-	var players = collection.models,
-		len = players.length - 1,
-		names = _.map(players, function(player) {
-			return player.get('name');
-		});
 
-	var shuffleNames = function(names) {
-		var i = 0,
-			rand,
-			temp;
+	var shufflePlayers = function(collection) {
+		var players = collection.models;
 
-		_.each(names, function(key, i) {
+		_.each(players, function(key, i) {
 			var rand = Math.floor(Math.random() * i),
-				temp = names[i];
-			
-			names[i] = names[rand];
-			names[rand] = temp;
+				temp = players[i];
+
+			players[i] = players[rand];
+			players[rand] = temp;
 		});
 
-		return names;
+		collection.models = players;
+		return collection;
 	};
 
-	var pickPairs = function(names) {
-		var i = 0,
-			len = names.length - 1,
-			result = {};
+	var assignReceivers = function(collection) {
+		var players = collection.models,
+			len = players.length;
 
-		for (; i < len; i++) {
-			result[names[i]] = names[i + 1];
-		}
-		result[names[len]] = names[0];
-		return result;
+		_.each(players, function(key, i) {
+			players[i % len].set({ receiver: players[(i + 1) % len]});
+		});
+
+		collection.models = players;
+		return collection;
 	};
 
-	return pickPairs(shuffleNames(names));
+	return assignReceivers( shufflePlayers(collection) );
 };

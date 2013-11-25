@@ -57,9 +57,9 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	showExchangedPlayersList: function() {
-		var results = App.Algorithms.ShuffledList(this.collection);
-		console.log(results);
-		//this.exchangedPlayersList.render(results);
+		this.exchangedPlayersList.render(
+			App.Algorithms.ShuffledList(this.collection)
+		);
 	}
 
 });
