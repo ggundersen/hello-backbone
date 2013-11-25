@@ -15,25 +15,22 @@ App.View.ExchangedPlayersList = Backbone.View.extend({
 					'<td>Giver</td>' +
 					'<td>Receiver</td>' +
 				'</tr>' +
-			'</thead>'
+			'</thead>' + 
+			'<tbody></tbody>'
 		);
 		$(this.parentEl).append(this.el);
 	},
 
 	render: function(collection) {
-		console.log('exchanged players list');
-
-		var players = collection.models;
+		var players = collection.models,
+			that = this;
 
 		_.each(players, function(key, i) {
-			console.log(players[i]);
-			$(this.el).find('thead').append(
-				'<tbody>' +
-					'<tr>' +
-						'<td>' + players[i].get('name') + '</td>' +
-						'<td>' + players[i].get('receiver') + '</td>' +
-					'</tr>' +
-				'</tbody>'
+			$(that.el).find('tbody').append(
+				'<tr>' +
+					'<td>' + players[i].get('name') + '</td>' +
+					'<td>' + players[i].get('receiver').get('name') + '</td>' +
+				'</tr>'
 			);
 		});
 	}
