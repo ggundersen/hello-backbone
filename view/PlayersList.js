@@ -15,7 +15,7 @@ App.View.PlayersList = Backbone.View.extend({
 		$(this.el).append(
 			'<thead>' +
 				'<tr>' +
-					'<td>Name</td><td>Age</td><td>Sex</td>' +
+					'<td>Name</td><td>Age</td><td>Gender</td>' +
 				'</tr>' +
 			'</thead>'
 		);
@@ -29,7 +29,7 @@ App.View.PlayersList = Backbone.View.extend({
 			'<tr>' +
 				'<td>' + lastModel.attributes.name + '</td>' +
 				'<td>' + lastModel.attributes.age + '</td>' +
-				'<td>' + lastModel.attributes.sex + '</td>' +
+				'<td>' + lastModel.attributes.gender + '</td>' +
 			'</tr>'
 		);
 	}

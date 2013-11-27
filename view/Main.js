@@ -38,7 +38,7 @@ App.View.Main = Backbone.View.extend({
 			parentEl: that.el
 		});
 
-		this.shuffleView = new App.View.ShuffleWindow({
+		this.shuffleWindow = new App.View.ShuffleWindow({
 			collection: that.collection,
 			parentEl: that.el
 		});
@@ -66,22 +66,7 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	showShuffleView: function() {
-		var that = this;
-
-		var test = new App.Model.Shuffle({
-			collection: that.collection
-		});
-
-		console.log(test.attributes.collection);
-
-		// Test shuffle model for now
-		//this.shuffleView.render();
+		this.shuffleWindow.render();
 	}
-
-	/*showShuffledList: function() {
-		this.shuffledList.render(
-			App.Algorithms.ShuffledList(this.collection)
-		);
-	}*/
 
 });

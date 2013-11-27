@@ -3,36 +3,69 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	className: 'window',
 
 	events: {
-		'click input.btn-submit' : 'runAlgorithm',
+		'click button.btn-close' : 'cancelWindow',
+		'click input.btn-byAge': 'enforceSingleSelection',
+		'click input.btn-byGender': 'enforceSingleSelection',
+		'click input.btn-submit' : 'runAlgorithm'
 	},
 
 	initialize: function(options) {
 		this.parentEl = options.parentEl;
-		
-		// Setting the HTML of `this.el`, div#add-player.
 		$(this.el).html(
 			'<div>' +
 				'<h4>Shuffle settings.</h4>' +
 				'<form>' +
+					'<label>Shuffle by age <span class="optional">(optional)</span></label>' +
+					'<input type="checkbox" name="byAge" class="btn-byAge" value="adults">Adults</input>' +
+					'<input type="checkbox" name="byAge" class="btn-byAge" value="kids">Kids</input>' +
+					'<label>Shuffle by sex <span class="optional">(optional)</span></label>' +
+					'<input type="checkbox" name="byGender" class="btn-byGender" value="men">Men</input>' +
+					'<input type="checkbox" name="byGender" class="btn-byGender" value="women">Women</input>' +
+					'<input type="submit" class="btn-submit" value="Shuffle"></input>' +
+					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
-				'<input type="submit" class="btn-submit" value="Add"></input>' +
-				'<button class="btn-close">Cancel</button>' +
 			'</div>'
 		);
-
-		// Adding div#add-player to div#content, which was passed into
-		// `initialize`.
 		$(this.parentEl).append(this.el);
 	},
 
-	runAlgorithm: function() {
-		var that = this;
+	getAlgorithmInfo: function() {
+		var data = {
+			byAge: $('.btn-byAge:checked'),
+			byGender: $('.btn-byGender:checked')
+		};
+
+		if ( !this.isValidAlgorithmInfo(data) ) return;
+		return {
+			byAge: data.byAge.val(),
+			byGender: data.byGender.val()
+		};
+	},
+
+	isValidAlgorithmInfo: function(data) {
+		if ( data.byAge.length === 2 ) {
+			alert('Please select just one age group');
+			return;
+		} else if ( data.byGender.length === 2 ) {
+			alert('Please select just one gender');
+			return;
+		}
+		return true;
+	},
+
+	runAlgorithm: function(evt) {
+		evt.preventDefault();
+
+		var data = this.getAlgorithmInfo();
+
+		console.log(data);
+		/*var that = this;
 
 		var test = new App.Model.Shuffle({
 			collection: that.collection
 		});
 
-		console.log(test.attributes.collection);
+		console.log(test.attributes.collection);*/
 	}
 
 });

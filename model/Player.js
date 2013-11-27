@@ -15,10 +15,10 @@ App.Model.Giver = Backbone.Model.extend({
 
 	defaults: {
 		age: null,
+		gender: null,
 		giver: null,
 		name: null,
-		receiver: null,
-		sex: null
+		receiver: null
 	}
 
 });
