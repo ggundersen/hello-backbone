@@ -10,6 +10,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	},
 
 	initialize: function(options) {
+		console.log(this.collection);
 		this.parentEl = options.parentEl;
 		$(this.el).html(
 			'<div>' +
@@ -17,7 +18,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 				'<form>' +
 					'<label>Shuffle by age <span class="optional">(optional)</span></label>' +
 					'<input type="checkbox" name="byAge" class="btn-byAge" value="adults">Adults</input>' +
-					'<input type="checkbox" name="byAge" class="btn-byAge" value="kids">Kids</input>' +
+					'<input type="checkbox" name="byAge" class="btn-byAge" value="children">children</input>' +
 					'<label>Shuffle by sex <span class="optional">(optional)</span></label>' +
 					'<input type="checkbox" name="byGender" class="btn-byGender" value="male">Male</input>' +
 					'<input type="checkbox" name="byGender" class="btn-byGender" value="female">Female</input>' +
@@ -29,7 +30,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		$(this.parentEl).append(this.el);
 	},
 
-	getCollectionByShuffleInfo: function(config) {
+	getPlayersArrayByShuffleInfo: function(config) {
 		var query = {};
 
 		if (config.byAge) {
@@ -69,20 +70,20 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
 
-		var shuffle,
-			config = this.getShuffleInfo()
+		var config = this.getShuffleInfo(),
+			matchedPlayers,
+			players,
+			shuffle,
 			that = this;
 
 		if (config) {
+			matchedPlayers = new App.Model.Shuffle({
+				collection: new App.Collection.Players(
+					this.getPlayersArrayByShuffleInfo(config)
+				)
+			});
 
-			config = this.getCollectionByShuffleInfo(config);
-			// Modify `this.collection` based on settings.
-			// config.byAge,
-			// config.byGender
-
-			//var shuffle = new App.Model.Shuffle({
-			//	collection: that.collection,
-			//});
+			console.log(matchedPlayers);
 			this.resetWindow();
 		}
 	}
