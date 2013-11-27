@@ -43,7 +43,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	},
 
 	isValidAlgorithmInfo: function(data) {
-		if ( data.byAge.length === 2 ) {
+		if (data.byAge.length === 2) {
 			alert('Please select just one age group');
 			return;
 		} else if ( data.byGender.length === 2 ) {
@@ -56,16 +56,17 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
 
-		var data = this.getAlgorithmInfo();
+		var data = this.getAlgorithmInfo()
+			that = this;
 
-		console.log(data);
-		/*var that = this;
-
-		var test = new App.Model.Shuffle({
-			collection: that.collection
-		});
-
-		console.log(test.attributes.collection);*/
+		if (data) {
+			var test = new App.Model.Shuffle({
+				collection: that.collection,
+				byAge: data.byAge,
+				byGender: data.byGender
+			});
+			this.resetWindow();
+		}
 	}
 
 });

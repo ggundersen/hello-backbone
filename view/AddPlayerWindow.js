@@ -57,7 +57,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 			giver,
 			that = this;
 
-		if ( data ) {
+		if (data) {
 			giver = new App.Model.Giver(data);
 			this.collection.add(giver);
 			this.resetWindow();
