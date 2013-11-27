@@ -56,14 +56,18 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
 
-		var data = this.getAlgorithmInfo()
+		var algo,
+			data = this.getAlgorithmInfo()
 			that = this;
 
 		if (data) {
-			var test = new App.Model.Shuffle({
+
+			// Modify `this.collection` based on settings.
+			// data.byAge,
+			// data.byGender
+
+			var algo = new App.Model.Shuffle({
 				collection: that.collection,
-				byAge: data.byAge,
-				byGender: data.byGender
 			});
 			this.resetWindow();
 		}
