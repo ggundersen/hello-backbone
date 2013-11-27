@@ -19,8 +19,8 @@ App.View.ShuffleWindow = BaseWindow.extend({
 					'<input type="checkbox" name="byAge" class="btn-byAge" value="adults">Adults</input>' +
 					'<input type="checkbox" name="byAge" class="btn-byAge" value="kids">Kids</input>' +
 					'<label>Shuffle by sex <span class="optional">(optional)</span></label>' +
-					'<input type="checkbox" name="byGender" class="btn-byGender" value="men">Men</input>' +
-					'<input type="checkbox" name="byGender" class="btn-byGender" value="women">Women</input>' +
+					'<input type="checkbox" name="byGender" class="btn-byGender" value="male">Male</input>' +
+					'<input type="checkbox" name="byGender" class="btn-byGender" value="female">Female</input>' +
 					'<input type="submit" class="btn-submit" value="Shuffle"></input>' +
 					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
@@ -29,25 +29,38 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		$(this.parentEl).append(this.el);
 	},
 
-	getAlgorithmInfo: function() {
-		var data = {
+	getCollectionByShuffleInfo: function(config) {
+		var query = {};
+
+		if (config.byAge) {
+			query['age'] = config.byAge;
+		}
+		if (config.byGender) {
+			query['gender'] = config.byGender;
+		}
+
+		return this.collection.where( query );
+	},
+
+	getShuffleInfo: function() {
+		var config = {
 			byAge: $('.btn-byAge:checked'),
 			byGender: $('.btn-byGender:checked')
 		};
 
-		if ( !this.isValidAlgorithmInfo(data) ) return;
+		if ( !this.isValidShuffleInfo(config) ) { return };
 		return {
-			byAge: data.byAge.val(),
-			byGender: data.byGender.val()
+			byAge: config.byAge.val(),
+			byGender: config.byGender.val()
 		};
 	},
 
-	isValidAlgorithmInfo: function(data) {
-		if (data.byAge.length === 2) {
-			alert('Please select just one age group');
+	isValidShuffleInfo: function(config) {
+		if (config.byAge.length === 2) {
+			this.notifyUser('Please select just one age group');
 			return;
-		} else if ( data.byGender.length === 2 ) {
-			alert('Please select just one gender');
+		} else if ( config.byGender.length === 2 ) {
+			this.notifyUser('Please select just one gender');
 			return;
 		}
 		return true;
@@ -56,19 +69,20 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
 
-		var algo,
-			data = this.getAlgorithmInfo()
+		var shuffle,
+			config = this.getShuffleInfo()
 			that = this;
 
-		if (data) {
+		if (config) {
 
+			config = this.getCollectionByShuffleInfo(config);
 			// Modify `this.collection` based on settings.
-			// data.byAge,
-			// data.byGender
+			// config.byAge,
+			// config.byGender
 
-			var algo = new App.Model.Shuffle({
-				collection: that.collection,
-			});
+			//var shuffle = new App.Model.Shuffle({
+			//	collection: that.collection,
+			//});
 			this.resetWindow();
 		}
 	}

@@ -29,22 +29,22 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	},
 
 	getPlayerInfo: function() {
-		var data = {
+		var config = {
 			name: $('input.name').val() || '',
 			age: $('input.age').val() || '',
 			gender: $('input:radio[name=gender]:checked').val() || ''
 		};
 
-		if ( !this.isValidPlayerInfo(data) ) return;
-		return data;
+		if ( !this.isValidPlayerInfo(config) ) return;
+		return config;
 	},
 
-	isValidPlayerInfo: function(data) {
-		if (data.name === '') {
-			alert('Please provide a name');
+	isValidPlayerInfo: function(config) {
+		if (config.name === '') {
+			this.notifyUser('Please provide a name');
 			return;
-		} else if (data.age !== '' && isNaN(data.age)) {
-			alert("'Age' must be a number");
+		} else if (config.age !== '' && isNaN(config.age)) {
+			this.notifyUser("'Age' must be a number");
 			return;
 		}
 		return true;
@@ -53,12 +53,12 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	submitPlayerInfo: function(evt) {
 		evt.preventDefault();
 
-		var data = this.getPlayerInfo(),
+		var config = this.getPlayerInfo(),
 			giver,
 			that = this;
 
-		if (data) {
-			giver = new App.Model.Giver(data);
+		if (config) {
+			giver = new App.Model.Giver(config);
 			this.collection.add(giver);
 			this.resetWindow();
 		}

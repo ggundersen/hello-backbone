@@ -9,6 +9,10 @@ var BaseWindow = Backbone.View.extend({
 		this.resetWindow();
 	},
 
+	notifyUser: function(message) {
+		alert(message);
+	},
+
 	resetWindow: function() {
 		$(this.el).hide();
 		$(this.el).find('form')[0].reset();

@@ -30,8 +30,7 @@
 var App = {
 	Model: {},
 	Collection: {},
-	View: {},
-	Algorithms: {}
+	View: {}
 };
 
 /* Why wait for `document.ready`?
