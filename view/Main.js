@@ -19,7 +19,7 @@ App.View.Main = Backbone.View.extend({
 
 	events: {
 		'click button.btn-add-player': 'showAddPlayerWindow',
-		'click button.btn-exchange-names': 'showExchangedPlayersList'
+		'click button.btn-shuffle': 'showShuffleView'
 	},
 
 	initialize: function() {
@@ -38,17 +38,22 @@ App.View.Main = Backbone.View.extend({
 			parentEl: that.el
 		});
 
-		this.exchangedPlayersList = new App.View.ExchangedPlayersList({
+		this.shuffleView = new App.View.ShuffleWindow({
 			collection: that.collection,
 			parentEl: that.el
 		});
+
+		/*this.shuffledList = new App.View.ShuffledList({
+			collection: that.collection,
+			parentEl: that.el
+		});*/
 	},
 
 	render: function() {
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
 			'<button class="btn-add-player">Add player</button>' +
-			'<button class="btn-exchange-names">Shuffle</button>'
+			'<button class="btn-shuffle">Shuffle</button>'
 		);
 	},
 
@@ -56,10 +61,14 @@ App.View.Main = Backbone.View.extend({
 		this.addPlayerWindow.render();
 	},
 
-	showExchangedPlayersList: function() {
-		this.exchangedPlayersList.render(
+	showShuffleView: function() {
+		this.shuffleView.render();
+	}
+
+	/*showShuffledList: function() {
+		this.shuffledList.render(
 			App.Algorithms.ShuffledList(this.collection)
 		);
-	}
+	}*/
 
 });

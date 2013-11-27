@@ -1,6 +1,6 @@
 App.View.AddPlayerWindow = Backbone.View.extend({
 
-	id: 'add-player',
+	className: 'window',
 
 	events: {
 		'click input.btn-submit' : 'handleForm',

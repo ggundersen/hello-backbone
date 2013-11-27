@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 }
-#add-player {
+.window {
 	background: #000;
 	display: none;
 	height: 100%;
@@ -13,10 +13,10 @@ body {
 	width: 100%;
 	z-index: 1000;
 }
-#add-player h4 {
+.window h4 {
 	text-decoration: underline;
 }
-#add-player div {
+.window div {
 	background-color: #fff;
 	border: 1px solid #000;
 	margin: 100px auto;
@@ -24,10 +24,41 @@ body {
 	text-align: center;
 	width: 300px;
 }
-#add-player label {
+.window label {
 	display: block;
 }
-#add-player .btn-submit {
+.window .btn-submit {
 	display: block;
 	margin: 0 auto;
 }
+/*
+#add-player-window {
+	background: #000;
+	display: none;
+	height: 100%;
+	margin: 0;
+	opacity: .7;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 1000;
+}
+#add-player-window h4 {
+	text-decoration: underline;
+}
+#add-player-window div {
+	background-color: #fff;
+	border: 1px solid #000;
+	margin: 100px auto;
+	padding: 15px;
+	text-align: center;
+	width: 300px;
+}
+#add-player-window label {
+	display: block;
+}
+#add-player-window .btn-submit {
+	display: block;
+	margin: 0 auto;
+}*/

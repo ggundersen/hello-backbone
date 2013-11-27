@@ -8,6 +8,11 @@ App.View.ExchangedPlayersList = Backbone.View.extend({
 
 	initialize: function(options) {
 		this.parentEl = options.parentEl;
+	},
+
+	render: function(collection) {
+		var players = collection.models,
+			that = this;
 
 		$(this.el).append(
 			'<thead>' +
@@ -19,12 +24,6 @@ App.View.ExchangedPlayersList = Backbone.View.extend({
 			'<tbody></tbody>'
 		);
 		$(this.parentEl).append(this.el);
-	},
-
-	render: function(collection) {
-		var players = collection.models,
-			that = this;
-
 		_.each(players, function(key, i) {
 			$(that.el).find('tbody').append(
 				'<tr>' +
