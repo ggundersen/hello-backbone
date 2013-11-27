@@ -1,20 +1,9 @@
-/* View
- *
- * 'Backbone Views are almost more convention than they are actual
- * code. A View is simply a JavaScript object that represents a
- * logical chunk of UI in the DOM. This might be a single item, an
- * entire list, a sidebar or panel, or even the surrounding frame
- * which wraps your whole app. Defining a chunk of UI as a View
- * allows you to define your DOM events declaratively, without having
- * to worry about render order... and makes it easy for the view to
- * react to specific changes in the state of your models.'
- * --------------------------------------------------------------- */
-
-App.View.ShuffleWindow = Backbone.View.extend({
+App.View.ShuffleWindow = BaseWindow.extend({
 
 	className: 'window',
 
 	events: {
+		'click input.btn-submit' : 'runAlgorithm',
 	},
 
 	initialize: function(options) {
@@ -26,6 +15,8 @@ App.View.ShuffleWindow = Backbone.View.extend({
 				'<h4>Shuffle settings.</h4>' +
 				'<form>' +
 				'</form>' +
+				'<input type="submit" class="btn-submit" value="Add"></input>' +
+				'<button class="btn-close">Cancel</button>' +
 			'</div>'
 		);
 
@@ -34,8 +25,14 @@ App.View.ShuffleWindow = Backbone.View.extend({
 		$(this.parentEl).append(this.el);
 	},
 
-	render: function() {
-		$(this.el).show();
+	runAlgorithm: function() {
+		var that = this;
+
+		var test = new App.Model.Shuffle({
+			collection: that.collection
+		});
+
+		console.log(test.attributes.collection);
 	}
 
 });

@@ -1,10 +1,10 @@
-App.View.AddPlayerWindow = Backbone.View.extend({
+App.View.AddPlayerWindow = BaseWindow.extend({
 
 	className: 'window',
 
 	events: {
-		'click input.btn-submit' : 'handleForm',
-		'click button.btn-close' : 'cancelView'
+		'click input.btn-submit' : 'submitPlayerInfo',
+		'click button.btn-close' : 'cancelWindow'
 	},
 
 	initialize: function(options) {
@@ -33,16 +33,7 @@ App.View.AddPlayerWindow = Backbone.View.extend({
 		$(this.parentEl).append(this.el);
 	},
 
-	render: function() {
-		$(this.el).show();
-	},
-
-	cancelView: function(evt) {
-		evt.preventDefault();
-		this.resetView();
-	},
-
-	getFormData: function() {
+	getPlayerInfo: function() {
 		var sex = $('input:radio[name=sex]:checked').val();
 
 		return {
@@ -52,21 +43,7 @@ App.View.AddPlayerWindow = Backbone.View.extend({
 		};
 	},
 
-	handleForm: function(evt) {
-		evt.preventDefault();
-
-		var data = this.getFormData(),
-			giver,
-			that = this;
-
-		if ( this.isValidData(data) ) {
-			giver = new App.Model.Giver(data);
-			this.collection.add(giver);
-			this.resetView();
-		}
-	},
-
-	isValidData: function(obj) {
+	isValidPlayerInfo: function(obj) {
 		if (obj.name === '') {
 			alert('Please provide a name');
 			return false;
@@ -77,9 +54,18 @@ App.View.AddPlayerWindow = Backbone.View.extend({
 		return true;
 	},
 
-	resetView: function() {
-		$(this.el).hide();
-		$(this.el).find('form')[0].reset();
+	submitPlayerInfo: function(evt) {
+		evt.preventDefault();
+
+		var data = this.getPlayerInfo(),
+			giver,
+			that = this;
+
+		if ( this.isValidPlayerInfo(data) ) {
+			giver = new App.Model.Giver(data);
+			this.collection.add(giver);
+			this.resetWindow();
+		}
 	}
 
 });

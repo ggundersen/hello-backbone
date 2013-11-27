@@ -57,12 +57,25 @@ App.View.Main = Backbone.View.extend({
 		);
 	},
 
+	getShuffleOptions: function() {
+
+	},
+
 	showAddPlayerWindow: function() {
 		this.addPlayerWindow.render();
 	},
 
 	showShuffleView: function() {
-		this.shuffleView.render();
+		var that = this;
+
+		var test = new App.Model.Shuffle({
+			collection: that.collection
+		});
+
+		console.log(test.attributes.collection);
+
+		// Test shuffle model for now
+		//this.shuffleView.render();
 	}
 
 	/*showShuffledList: function() {
