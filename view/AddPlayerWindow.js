@@ -1,7 +1,5 @@
 App.View.AddPlayerWindow = BaseWindow.extend({
 
-	className: 'window',
-
 	events: {
 		'click button.btn-close' : 'cancelWindow',
 		'click input.btn-submit' : 'submitPlayerInfo'
@@ -10,14 +8,20 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	initialize: function(options) {
 		this.parentEl = options.parentEl;
 		$(this.el).html(
-			'<div>' +
+			'<div class="window-container">' +
 				'<h4>Add a user.</h4>' +
 				'<form>' +
 					'<label>Name</label>' +
 					'<input class="name"></input>' +
-					'<label>Age <span class="optional">(optional)</span></label>' +
+					'<label>Age ' +
+						'<span class="optional">(optional)</span>' +
+						'<span class="error name"></span>' +
+					'</label>' +
 					'<input class="age"></input>' +
-					'<label>Gender <span class="optional">(optional)</span></label>' +
+					'<label>Gender ' +
+						'<span class="optional">(optional)</span>' +
+						'<span class="error age"></span>' +
+					'</label>' +
 					'<input type="radio" name="gender" class="gender" value="female">Female</input>' +
 					'<input type="radio" name="gender" class="gender" value="male">Male</input>' +
 					'<input type="submit" class="btn-submit" value="Add"></input>' +
@@ -40,11 +44,14 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	},
 
 	isValidPlayerInfo: function(config) {
+		var $err = $(this.el).find('.error');
+
 		if (config.name === '') {
-			this.notifyUser('Please provide a name');
+			this.notifyUser($err.filter('.name'), 'Please provide a name');
 			return;
 		} else if (config.age !== '' && isNaN(config.age)) {
-			this.notifyUser("'Age' must be a number");
+			$err.filter('.name').empty();
+			this.notifyUser($err.filter('.age'), "'Age' must be a number");
 			return;
 		}
 		return true;

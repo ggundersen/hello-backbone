@@ -1,5 +1,7 @@
 var BaseWindow = Backbone.View.extend({
 
+	className: 'window',
+
 	render: function() {
 		$(this.el).show();
 	},
@@ -9,8 +11,8 @@ var BaseWindow = Backbone.View.extend({
 		this.resetWindow();
 	},
 
-	notifyUser: function(message) {
-		alert(message);
+	notifyUser: function(el, message) {
+		el.text(message);
 	},
 
 	resetWindow: function() {

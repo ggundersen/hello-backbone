@@ -1,7 +1,5 @@
 App.View.ShuffleWindow = BaseWindow.extend({
 
-	className: 'window',
-
 	events: {
 		'click button.btn-close' : 'cancelWindow',
 		'click input.btn-byAge': 'enforceSingleSelection',
@@ -10,10 +8,9 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	},
 
 	initialize: function(options) {
-		console.log(this.collection);
 		this.parentEl = options.parentEl;
 		$(this.el).html(
-			'<div>' +
+			'<div class="window-container">' +
 				'<h4>Shuffle settings.</h4>' +
 				'<form>' +
 					'<label>Shuffle by age <span class="optional">(optional)</span></label>' +
