@@ -13,7 +13,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 				'<form>' +
 					'<label>Name</label>' +
 					'<input class="name"></input>' +
-					'<label>Age ' +
+					'<label for="age">Age ' +
 						'<span class="optional">(optional)</span>' +
 						'<span class="error name"></span>' +
 					'</label>' +
@@ -29,7 +29,22 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 				'</form>' +
 			'</div>'
 		);
+		this.getAgeOptions();
 		$(this.parentEl).append(this.el);
+	},
+
+	getAgeOptions: function() {
+		var parent = $(this.el).find('label[for="age"]');
+
+		console.log(parent);
+
+		/*for(var i=1; i<=24; i++){
+			var select = document.getElementById("hours");
+			var option = document.createElement("OPTION");
+			select.options.add(option);
+			option.text = i;
+			option.value = i;
+		}*/
 	},
 
 	getPlayerInfo: function() {
@@ -54,7 +69,12 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 			this.notifyUser($err.filter('.age'), "'Age' must be a number");
 			return;
 		}
+		$err.empty();
 		return true;
+	},
+
+	notifyUser: function(elem, message) {
+		elem.text(message);
 	},
 
 	submitPlayerInfo: function(evt) {

@@ -31,3 +31,7 @@ body {
 	display: block;
 	margin: 0 auto;
 }
+.window .error {
+	color: #ff0000;
+	font-size: 12px;
+}

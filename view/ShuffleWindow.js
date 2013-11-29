@@ -14,11 +14,11 @@ App.View.ShuffleWindow = BaseWindow.extend({
 				'<h4>Shuffle settings.</h4>' +
 				'<form>' +
 					'<label>Shuffle by age <span class="optional">(optional)</span></label>' +
-					'<input type="checkbox" name="byAge" class="btn-byAge" value="adults">Adults</input>' +
-					'<input type="checkbox" name="byAge" class="btn-byAge" value="children">children</input>' +
+					'<input type="radio" name="byAge" class="btn-byAge" value="adults">Adults</input>' +
+					'<input type="radio" name="byAge" class="btn-byAge" value="children">children</input>' +
 					'<label>Shuffle by sex <span class="optional">(optional)</span></label>' +
-					'<input type="checkbox" name="byGender" class="btn-byGender" value="male">Male</input>' +
-					'<input type="checkbox" name="byGender" class="btn-byGender" value="female">Female</input>' +
+					'<input type="radio" name="byGender" class="btn-byGender" value="male">Male</input>' +
+					'<input type="radio" name="byGender" class="btn-byGender" value="female">Female</input>' +
 					'<input type="submit" class="btn-submit" value="Shuffle"></input>' +
 					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
@@ -46,23 +46,24 @@ App.View.ShuffleWindow = BaseWindow.extend({
 			byGender: $('.btn-byGender:checked')
 		};
 
-		if ( !this.isValidShuffleInfo(config) ) { return };
 		return {
 			byAge: config.byAge.val(),
 			byGender: config.byGender.val()
 		};
 	},
 
-	isValidShuffleInfo: function(config) {
+	/*isValidShuffleInfo: function(config) {
+		var $err = $(this.el).find('.error');
+
 		if (config.byAge.length === 2) {
-			this.notifyUser('Please select just one age group');
+			this.notifyUser($err.filter('.byAge'), 'Please select just one age group');
 			return;
 		} else if ( config.byGender.length === 2 ) {
-			this.notifyUser('Please select just one gender');
+			this.notifyUser($err.filter('.age'), 'Please select just one gender');
 			return;
 		}
 		return true;
-	},
+	},*/
 
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
