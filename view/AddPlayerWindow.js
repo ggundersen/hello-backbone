@@ -68,8 +68,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 		evt.preventDefault();
 
 		var config = this.getPlayerInfo(),
-			giver,
-			that = this;
+			giver;
 
 		if (config) {
 			giver = new App.Model.Giver(config);
