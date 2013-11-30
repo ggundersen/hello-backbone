@@ -12,8 +12,8 @@ var BaseWindow = Backbone.View.extend({
 	},
 
 	resetWindow: function() {
-		$(this.el).find('.error').empty();
 		$(this.el).hide();
+		$(this.el).find('.error').empty();
 		$(this.el).find('form')[0].reset();
 	}
 

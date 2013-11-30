@@ -11,12 +11,10 @@ App.View.ShuffleWindow = BaseWindow.extend({
 			'<div class="window-container">' +
 				'<h4>Shuffle settings.</h4>' +
 				'<form>' +
-					'<label>Shuffle by age</label>' +
-					'<input type="radio" name="age" class="age" value="yes">Yes</input>' +
-					'<input type="radio" name="age" class="age" value="no">No</input>' +
-					'<label>Shuffle by sex</label>' +
-					'<input type="radio" name="gender" class="gender" value="yes">Yes</input>' +
-					'<input type="radio" name="gender" class="gender" value="no">No</input>' +
+					'<label>Shuffle by gender' +
+						'<input type="radio" name="gender" class="gender" value="yes">Yes</input>' +
+						'<input type="radio" name="gender" class="gender" value="no">No</input>' +
+					'</label>' +
 					'<input type="submit" class="btn-submit" value="Shuffle"></input>' +
 					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
@@ -25,15 +23,18 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		$(this.parentEl).append(this.el);
 	},
 
-	filterPlayers: function(config) {
-		if ( !_.isUndefined(config.age) || !_.isUndefined(config.gender) ) {
-			this.collection.reset( this.collection.where( config ) );
+	getFilteredPlayers: function(config) {
+		var result = [];
+
+		if ( !_.isUndefined(config.age) && !_.isUndefined(config.gender) ) {
+		//	this.collection.reset( this.collection.where( config ) );
 		}
+
+		return result;
 	},
 
 	getUserOptions: function() {
-		var age = $('.btn-age:checked').val(),
-			gender = $('.btn-gender:checked').val(),
+		var gender = $('.gender:checked').val(),
 			result = {};
 
 		if (age) { result.age = age; }
@@ -48,7 +49,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		console.log('as input');
 		console.log(this.collection);
 
-		this.filterPlayers( this.getUserOptions() );
+		var playersArray = this.getFilteredPlayers( this.getUserOptions() );
 		console.log('filter');
 		console.log(this.collection);
 		

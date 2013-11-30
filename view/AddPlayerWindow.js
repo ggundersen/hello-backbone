@@ -15,10 +15,6 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 						'<span class="error"></span>' +
 						'<input class="name"></input>' +
 					'</label>' +
-					'<label>Age <span class="optional"> (optional):</span>' +
-						'<input type="radio" name="age" class="age" value="adult">adult</input>' +
-						'<input type="radio" name="age" class="age" value="child">child</input>' +
-					'</label>' +		
 					'<label>Gender <span class="optional"> (optional):</span>' +
 						'<input type="radio" name="gender" class="gender" value="female">Female</input>' +
 						'<input type="radio" name="gender" class="gender" value="male">Male</input>' +
@@ -34,7 +30,6 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	getPlayerConfig: function() {
 		return {
 			name: $('input.name').val() || '',
-			age: $('input:radio[name=age]:checked', '#add-player').val() || '',
 			gender: $('input:radio[name=gender]:checked', '#add-player').val() || ''
 		};
 	},
