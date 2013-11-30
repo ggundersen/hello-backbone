@@ -1,4 +1,6 @@
-body {
+/* General
+ * ------- */
+ body {
 	background: #eee;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 12px;
@@ -51,10 +53,9 @@ button:hover {
 #participants thead {
 	font-weight: 700;
 }
-#participants td.last {
-	border-left: 1px solid #aaa;
-}
 
+/* Window box and overlay
+ * ---------------------- */
 .window {
 	background: #fff;
 	border: 1px solid #000;
@@ -77,10 +78,6 @@ button:hover {
 .window h4 {
 	font-size: 16px;
 }
-/*.window .btn-submit {
-	display: block;
-	margin: 0 auto;
-}*/
 .window .error {
 	color: #ff0000;
 	font-size: 12px;
