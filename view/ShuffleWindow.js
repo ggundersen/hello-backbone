@@ -2,8 +2,6 @@ App.View.ShuffleWindow = BaseWindow.extend({
 
 	events: {
 		'click button.btn-close' : 'cancelWindow',
-		'click input.btn-byAge': 'enforceSingleSelection',
-		'click input.btn-byGender': 'enforceSingleSelection',
 		'click input.btn-submit' : 'runAlgorithm'
 	},
 
@@ -27,7 +25,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		$(this.parentEl).append(this.el);
 	},
 
-	getPlayersArrayByShuffleInfo: function(config) {
+	filterPlayers: function(config) {
 		var query = {};
 
 		if (config.byAge) {
@@ -52,19 +50,6 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		};
 	},
 
-	/*isValidShuffleInfo: function(config) {
-		var $err = $(this.el).find('.error');
-
-		if (config.byAge.length === 2) {
-			this.notifyUser($err.filter('.byAge'), 'Please select just one age group');
-			return;
-		} else if ( config.byGender.length === 2 ) {
-			this.notifyUser($err.filter('.age'), 'Please select just one gender');
-			return;
-		}
-		return true;
-	},*/
-
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
 
@@ -77,7 +62,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		if (config) {
 			matchedPlayers = new App.Model.Shuffle({
 				collection: new App.Collection.Players(
-					this.getPlayersArrayByShuffleInfo(config)
+					this.filterPlayers(config)
 				)
 			});
 

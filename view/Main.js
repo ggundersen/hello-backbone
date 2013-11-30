@@ -19,7 +19,7 @@ App.View.Main = Backbone.View.extend({
 
 	events: {
 		'click button.btn-add-player': 'showAddPlayerWindow',
-		'click button.btn-shuffle': 'showShuffleView'
+		'click button.btn-shuffle': 'showShuffleWindow'
 	},
 
 	initialize: function() {
@@ -57,15 +57,11 @@ App.View.Main = Backbone.View.extend({
 		);
 	},
 
-	getShuffleOptions: function() {
-
-	},
-
 	showAddPlayerWindow: function() {
 		this.addPlayerWindow.render();
 	},
 
-	showShuffleView: function() {
+	showShuffleWindow: function() {
 		this.shuffleWindow.render();
 	}
 
