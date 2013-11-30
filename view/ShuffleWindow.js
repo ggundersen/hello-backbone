@@ -35,7 +35,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 			query['gender'] = config.byGender;
 		}
 
-		return this.collection.where( query );
+		return !!query ? this.collection : this.collection.where( query );
 	},
 
 	getShuffleInfo: function() {
@@ -54,21 +54,17 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		evt.preventDefault();
 
 		var config = this.getShuffleInfo(),
+			players = this.filterPlayers(config),
 			matchedPlayers,
-			players,
-			shuffle,
 			that = this;
 
-		if (config) {
-			matchedPlayers = new App.Model.Shuffle({
-				collection: new App.Collection.Players(
-					this.filterPlayers(config)
-				)
-			});
+		matchedPlayers = new App.Model.Shuffle({
+			collection: players
+		});
 
-			console.log(matchedPlayers);
-			this.resetWindow();
-		}
+		console.log('FINAL');
+		console.log(matchedPlayers);
+		this.resetWindow();
 	}
 
 });
