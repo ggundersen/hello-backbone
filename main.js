@@ -28,8 +28,9 @@
  * useful for organizing the application.
  */
 var App = {
-	Model: {},
+	Algorithm: {},
 	Collection: {},
+	Model: {},
 	View: {}
 };
 

@@ -40,35 +40,31 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 		}).join('');
 	},
 
-	getPlayerInfo: function() {
-		var config = {
+	getPlayerConfig: function() {
+		return {
 			name: $('input.name').val() || '',
 			age: $('select.age').val() || '',
 			gender: $('input:radio[name=gender]:checked').val() || ''
 		};
-
-		if ( !this.isValidPlayerInfo(config) ) return;
-		return config;
 	},
 
-	isValidPlayerInfo: function(config) {
-		var $err = $(this.el).find('.error');
+	isValidConfig: function(config) {
+		return config.name === '';
+	},
 
-		if (config.name === '') {
-			$err.text('Please provide a name');
-			return;
-		}
-		$err.empty();
-		return true;
+	notifyUser: function(message) {
+		$(this.el).find('.error').text(message);	
 	},
 
 	submitPlayerInfo: function(evt) {
 		evt.preventDefault();
 
-		var config = this.getPlayerInfo(),
+		var config = this.getPlayerConfig(),
 			giver;
 
-		if (config) {			
+		if ( this.isValidConfig(config) ) {		
+			this.notifyUser('Please provide a name');
+		} else {
 			giver = new App.Model.Giver(config);
 			this.collection.add(giver);
 			this.resetWindow();
