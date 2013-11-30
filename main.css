@@ -10,11 +10,17 @@ button {
 	margin: 0;
 	padding: 0;
 }
+button:hover {
+	cursor: pointer;
+}
+
+/* Content, menu
+ * ------------- */
 #content {
 	background: #fff;
 	border: 1px solid #aaa;
 	margin: 0 auto;
-	padding: 15px;
+	padding: 15px 15px 50px 15px;
 	position: relative;
 	top: 20px;
 	width: 400px;
@@ -30,9 +36,23 @@ button {
 #content button:hover {
 	font-weight: 700;
 }
-
-.menu button {
+#content .menu button {
 	text-transform: uppercase;
+}
+
+/* Participants table
+ * ------------------ */
+#participants {
+	border-collapse: collapse;
+	position: relative;
+	top: 20px;
+	width: 100%;
+}
+#participants thead {
+	font-weight: 700;
+}
+#participants td.last {
+	border-left: 1px solid #aaa;
 }
 
 .window {

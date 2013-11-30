@@ -1,4 +1,4 @@
-App.View.PlayersList = Backbone.View.extend({
+App.View.ParticipantsList = Backbone.View.extend({
 
 	id: 'participants',
 

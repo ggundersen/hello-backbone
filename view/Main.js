@@ -30,7 +30,7 @@ App.View.Main = Backbone.View.extend({
 		this.collection = new App.Collection.Players();
 		this.render();
 
-		this.playersList = new App.View.PlayersList({
+		this.participantsList = new App.View.ParticipantsList({
 			collection: that.collection,
 			parentEl: that.el
 		});
@@ -85,7 +85,7 @@ App.View.Main = Backbone.View.extend({
 		// way to do this?
 		var that = this.mainThis;
 
-		that.playersList.unrender();
+		that.participantsList.unrender();
 		that.removeMenu();
 
 		// I could also call `this.render`, but I find that
