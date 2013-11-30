@@ -47,7 +47,7 @@ App.View.Main = Backbone.View.extend({
 		this.shuffledList = new App.View.ShuffledList({
 			collection: that.collection,
 			parentEl: that.el,
-			parentThis: that
+			mainThis: that
 		});
 
 		this.shuffledList.listenTo(
@@ -70,9 +70,25 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	showShuffleList: function(shuffledPlayers) {
-		// `this` refers to the callback's object, `ShuffledList`. Is
-		// this really the best way to do this?
-		this.parentThis.playersList.unrender();
+		// `this` refers to the callback's object, `ShuffledList`. A
+		// reference to the view `Main` is passed to `ShuffledList`
+		// when the view is instantiated. Is rhis really the best
+		// way to do this?
+		var that = this.mainThis;
+
+		that.playersList.unrender();
+
+		// I could also call `this.render`, but I find that
+		// confusing.
+		that.shuffledList.render();
+		if (shuffledPlayers.length === 1) {
+			that.shuffledList.appendPlayers( shuffledPlayers );
+		} else {
+			_.each(shuffledPlayers, function(players) {
+				that.shuffledList.appendPlayers( players );
+			});
+		}
+		
 	},
 
 	showShuffleWindow: function() {

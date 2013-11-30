@@ -8,13 +8,24 @@ App.View.ShuffledList = Backbone.View.extend({
 
 	initialize: function(options) {
 		this.parentEl = options.parentEl;
-		this.parentThis = options.parentThis;
+		this.mainThis = options.mainThis;
 	},
 
-	/*render: function(collection) {
-		var players = collection.models,
-			that = this;
+	appendPlayers: function(players) {
+		var that = this;
 
+		_.each(players, function(player) {
+			$(that.el).find('tbody').append(
+				'<tr>' +
+					'<td>' + player.get('name') + '</td>' +
+					'<td>' + player.get('receiver') + '</td>' +
+				'</tr>'
+			);
+		});
+	},
+
+	render: function() {
+		$(this.parentEl).append(this.el);
 		$(this.el).append(
 			'<thead>' +
 				'<tr>' +
@@ -24,15 +35,6 @@ App.View.ShuffledList = Backbone.View.extend({
 			'</thead>' + 
 			'<tbody></tbody>'
 		);
-		$(this.parentEl).append(this.el);
-		_.each(players, function(key, i) {
-			$(that.el).find('tbody').append(
-				'<tr>' +
-					'<td>' + players[i].get('name') + '</td>' +
-					'<td>' + players[i].get('receiver').get('name') + '</td>' +
-				'</tr>'
-			);
-		});
-	}*/
+	},
 
 });

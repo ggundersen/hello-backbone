@@ -6,7 +6,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	},
 
 	initialize: function(options) {
-		this.parentEl = options.parentEl;
+		$(options.parentEl).append(this.el);
 		$(this.el).html(
 			'<div class="window-container">' +
 				'<h4>Shuffle settings.</h4>' +
@@ -20,7 +20,6 @@ App.View.ShuffleWindow = BaseWindow.extend({
 				'</form>' +
 			'</div>'
 		);
-		$(this.parentEl).append(this.el);
 	},
 
 	getByGender: function(coll, gen) {

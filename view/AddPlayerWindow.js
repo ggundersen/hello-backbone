@@ -6,7 +6,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	},
 
 	initialize: function(options) {
-		this.parentEl = options.parentEl;
+		$(options.parentEl).append(this.el);
 		$(this.el).html(
 			'<div class="window-container">' +
 				'<h4>Add a user.</h4>' +
@@ -24,7 +24,6 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 				'</form>' +
 			'</div>'
 		);
-		$(this.parentEl).append(this.el);
 	},
 
 	getPlayerConfig: function() {
