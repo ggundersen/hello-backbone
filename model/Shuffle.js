@@ -1,9 +1,7 @@
 App.Model.Shuffle = Backbone.Model.extend({
 
 	initialize: function(options) {
-		return this.assignReceivers(
-			this.shufflePlayers( options.collection )
-		);
+		this.collection = options.collection;
 	},
 
 	assignReceivers: function(collection) {
@@ -16,6 +14,12 @@ App.Model.Shuffle = Backbone.Model.extend({
 
 		collection.models = players;
 		return collection;
+	},
+
+	run: function() {
+		return this.assignReceivers(
+			this.shufflePlayers( this.collection )
+		);
 	},
 
 	shufflePlayers: function(collection) {

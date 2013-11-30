@@ -71,10 +71,6 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 		if (config) {			
 			giver = new App.Model.Giver(config);
 			this.collection.add(giver);
-
-			console.log('submitPlayerInfo');
-			console.log(this.collection);
-
 			this.resetWindow();
 		}
 	}

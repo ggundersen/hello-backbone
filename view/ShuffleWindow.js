@@ -35,10 +35,14 @@ App.View.ShuffleWindow = BaseWindow.extend({
 			query['gender'] = config.byGender;
 		}
 
-		return !!query ? this.collection : this.collection.where( query );
+		if ( _.isEmpty(query) ) {
+			return this.collection;
+		} else {
+			return this.collection.reset( this.collection.where( query ) );	
+		}
 	},
 
-	getShuffleInfo: function() {
+	getShuffleConfig: function() {
 		var config = {
 			byAge: $('.btn-byAge:checked'),
 			byGender: $('.btn-byGender:checked')
@@ -53,17 +57,20 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
 
-		var config = this.getShuffleInfo(),
-			players = this.filterPlayers(config),
+		var players = this.filterPlayers( this.getShuffleConfig() ),
 			matchedPlayers,
 			that = this;
 
 		matchedPlayers = new App.Model.Shuffle({
 			collection: players
-		});
+		}).run();
 
-		console.log('FINAL');
-		console.log(matchedPlayers);
+		console.log('runAlgo');
+		console.log(this.collection);
+		console.log(matchedPlayers.models);
+		//this.collection.reset(matchedPlayers.models);
+		//console.log(this.collection);
+
 		this.resetWindow();
 	}
 
