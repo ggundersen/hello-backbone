@@ -21,8 +21,7 @@ App.View.Main = Backbone.View.extend({
 	// in `App.View.Menu`. This does not seem ideal.
 	events: {
 		'click button.btn-add-player': 'showAddPlayerWindow',
-		'click button.btn-shuffle': 'showShuffleWindow',
-		'click button.btn-refresh': 'buildMenu'
+		'click button.btn-shuffle': 'showShuffleWindow'
 	},
 
 	initialize: function() {
@@ -60,28 +59,19 @@ App.View.Main = Backbone.View.extend({
 		);
 	},
 
-	buildMenu: function(refresh) {
-		var $menu = $(this.el).find('.menu');
-
-		$menu.empty();
-		if (refresh === true) {
-			$menu.append('<button class="btn-refresh">Refresh</button>');
-		} else {
-			$menu.append(
-				'<button class="btn-add-player">Add player</button>' +
-				'<button class="btn-shuffle">Shuffle</button>'
-			);
-		}
+	removeMenu: function() {
+		$(this.el).find('.menu').remove();
 	},
 
 	render: function() {
 		$(this.parentEl).append(this.el);
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
-			'<span class="menu">' + 
+			'<span class="menu">' +
+				'<button class="btn-add-player">Add player</button>' +
+				'<button class="btn-shuffle">Shuffle</button>' +
 			'</span>'
 		);
-		this.buildMenu();
 	},
 
 	showAddPlayerWindow: function() {
@@ -96,7 +86,7 @@ App.View.Main = Backbone.View.extend({
 		var that = this.mainThis;
 
 		that.playersList.unrender();
-		that.buildMenu(true);
+		that.removeMenu();
 
 		// I could also call `this.render`, but I find that
 		// confusing.
