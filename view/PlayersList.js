@@ -31,6 +31,10 @@ App.View.PlayersList = Backbone.View.extend({
 				'<td>' + latestModel.gender + '</td>' +
 			'</tr>'
 		);
+	},
+
+	unrender: function() {
+		$(this.el).hide();
 	}
 
 });

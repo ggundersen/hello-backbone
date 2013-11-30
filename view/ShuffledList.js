@@ -8,6 +8,7 @@ App.View.ShuffledList = Backbone.View.extend({
 
 	initialize: function(options) {
 		this.parentEl = options.parentEl;
+		this.parentThis = options.parentThis;
 	},
 
 	/*render: function(collection) {

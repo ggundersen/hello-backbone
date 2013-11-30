@@ -24,6 +24,7 @@ App.View.Main = Backbone.View.extend({
 
 	initialize: function() {
 		var that = this;
+
 		this.collection = new App.Collection.Players();
 		this.render();
 
@@ -45,11 +46,15 @@ App.View.Main = Backbone.View.extend({
 
 		this.shuffledList = new App.View.ShuffledList({
 			collection: that.collection,
-			parentEl: that.el
+			parentEl: that.el,
+			parentThis: that
 		});
-		this.shuffledList.listenTo(this.shuffleWindow, 'shuffle', function(result) {
-			console.log(result);
-		});
+
+		this.shuffledList.listenTo(
+			that.shuffleWindow,
+			'shuffle',
+			that.showShuffleList
+		);
 	},
 
 	render: function() {
@@ -62,6 +67,12 @@ App.View.Main = Backbone.View.extend({
 
 	showAddPlayerWindow: function() {
 		this.addPlayerWindow.render();
+	},
+
+	showShuffleList: function(shuffledPlayers) {
+		// `this` refers to the callback's object, `ShuffledList`. Is
+		// this really the best way to do this?
+		this.parentThis.playersList.unrender();
 	},
 
 	showShuffleWindow: function() {
