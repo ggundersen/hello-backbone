@@ -1,4 +1,4 @@
-App.View.ExchangedPlayersList = Backbone.View.extend({
+App.View.ShuffledList = Backbone.View.extend({
 
 	id: 'assignments',
 
@@ -10,7 +10,7 @@ App.View.ExchangedPlayersList = Backbone.View.extend({
 		this.parentEl = options.parentEl;
 	},
 
-	render: function(collection) {
+	/*render: function(collection) {
 		var players = collection.models,
 			that = this;
 
@@ -32,6 +32,6 @@ App.View.ExchangedPlayersList = Backbone.View.extend({
 				'</tr>'
 			);
 		});
-	}
+	}*/
 
 });

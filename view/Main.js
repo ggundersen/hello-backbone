@@ -42,6 +42,14 @@ App.View.Main = Backbone.View.extend({
 			collection: that.collection,
 			parentEl: that.el
 		});
+
+		this.shuffledList = new App.View.ShuffledList({
+			collection: that.collection,
+			parentEl: that.el
+		});
+		this.shuffledList.listenTo(this.shuffleWindow, 'shuffle', function(result) {
+			console.log(result);
+		});
 	},
 
 	render: function() {

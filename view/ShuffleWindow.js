@@ -63,6 +63,8 @@ App.View.ShuffleWindow = BaseWindow.extend({
 			});
 		}
 		
+		this.trigger('shuffle', result);
+
 		this.resetWindow();
 	}
 
