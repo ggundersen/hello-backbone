@@ -1,28 +1,27 @@
 App.Algorithm.Shuffle = function(players) {
 
-	var assignReceivers = function(players) {
-		console.log(players);
-
+	var getPlayersWithReceivers = function(players) {
 		var len = players.length;
 
 		_.each(players, function(key, i) {
-			//console.log(players);
-			//players[i % len].set({ receiver: players[(i + 1) % len]});
+			players[i % len].set({ receiver: players[(i + 1) % len]});
 		});
 
 		return players;
 	};
 
-	var shufflePlayers = function(players) {
-		return _.map(players, function(i) {
+	var getShuffledPlayers = function(players) {
+		_.each(players, function(key, i) {
 			var rand = Math.floor(Math.random() * i),
-				temp = players[i];
+			temp = players[i];
 
 			players[i] = players[rand];
 			players[rand] = temp;
 		});
+
+		return players;
 	};
 
-	return assignReceivers( shufflePlayers( players ) );
+	return getPlayersWithReceivers( getShuffledPlayers( players ) );
 
 };

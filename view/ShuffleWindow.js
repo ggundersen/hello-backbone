@@ -44,8 +44,18 @@ App.View.ShuffleWindow = BaseWindow.extend({
 
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
+
+		console.log('as input');
+		console.log(this.collection);
+
 		this.filterPlayers( this.getUserOptions() );
+		console.log('filter');
+		console.log(this.collection);
+		
 		this.collection.reset( App.Algorithm.Shuffle( this.collection.models ) );
+		console.log('shuffled');
+		console.log(this.collection);
+		
 		this.resetWindow();
 	}
 
