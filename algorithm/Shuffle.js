@@ -4,7 +4,7 @@ App.Algorithm.Shuffle = function(players) {
 		var len = players.length;
 
 		_.each(players, function(key, i) {
-			players[i % len].set({ receiver: players[(i + 1) % len]});
+			players[i % len].set({ receiver: players[(i + 1) % len].attributes.name });
 		});
 
 		return players;
