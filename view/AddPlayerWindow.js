@@ -18,6 +18,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 						'<span class="error"></span>' +
 					'</label>' +
 					'<select class="age" size="5">' +
+						this.getAgeOptions() +
 					'</select>' +
 					'<label>Gender ' +
 						'<span class="optional">(optional)</span>' +
@@ -30,16 +31,13 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 				'</form>' +
 			'</div>'
 		);
-		this.getAgeOptions();
 		$(this.parentEl).append(this.el);
 	},
 
 	getAgeOptions: function() {
-		var parent = $(this.el).find('select.age');
-		
-		_.each(_.range(1, 121), function(i) {
-			parent.append('<option>' + i + '</option>');
-		});
+		return _.map(_.range(1, 121), function(i) {
+			return '<option>' + i + '</option>';
+		}).join('');
 	},
 
 	getPlayerInfo: function() {
