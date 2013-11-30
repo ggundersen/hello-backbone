@@ -1,7 +1,7 @@
 App.Algorithm.Shuffle = function(players) {
 
 	var assignReceivers = function(players) {
-		//console.log(players);
+		console.log(players);
 
 		var len = players.length;
 

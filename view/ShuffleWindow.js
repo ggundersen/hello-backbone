@@ -15,8 +15,8 @@ App.View.ShuffleWindow = BaseWindow.extend({
 					'<input type="radio" name="age" class="btn-age" value="adults">Adults</input>' +
 					'<input type="radio" name="age" class="btn-age" value="children">children</input>' +
 					'<label>Shuffle by sex <span class="optional">(optional)</span></label>' +
-					'<input type="radio" name="gender" class="btn-gender" value="male">Male</input>' +
 					'<input type="radio" name="gender" class="btn-gender" value="female">Female</input>' +
+					'<input type="radio" name="gender" class="btn-gender" value="male">Male</input>' +
 					'<input type="submit" class="btn-submit" value="Shuffle"></input>' +
 					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
@@ -44,11 +44,8 @@ App.View.ShuffleWindow = BaseWindow.extend({
 
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
-		console.log(this.collection);
 		this.filterPlayers( this.getUserOptions() );
-		console.log(this.collection);
-		//this.collection.reset( App.Algorithm.Shuffle( this.collection.models ) );
-		//console.log(this.collection);
+		this.collection.reset( App.Algorithm.Shuffle( this.collection.models ) );
 		this.resetWindow();
 	}
 
