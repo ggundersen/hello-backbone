@@ -15,12 +15,13 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 					'<input class="name"></input>' +
 					'<label for="age">Age ' +
 						'<span class="optional">(optional)</span>' +
-						'<span class="error name"></span>' +
+						'<span class="error"></span>' +
 					'</label>' +
-					'<input class="age"></input>' +
+					'<select class="age" size="5">' +
+					'</select>' +
 					'<label>Gender ' +
 						'<span class="optional">(optional)</span>' +
-						'<span class="error age"></span>' +
+						'<span class="age"></span>' +
 					'</label>' +
 					'<input type="radio" name="gender" class="gender" value="female">Female</input>' +
 					'<input type="radio" name="gender" class="gender" value="male">Male</input>' +
@@ -34,23 +35,17 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	},
 
 	getAgeOptions: function() {
-		var parent = $(this.el).find('label[for="age"]');
-
-		console.log(parent);
-
-		/*for(var i=1; i<=24; i++){
-			var select = document.getElementById("hours");
-			var option = document.createElement("OPTION");
-			select.options.add(option);
-			option.text = i;
-			option.value = i;
-		}*/
+		var parent = $(this.el).find('select.age');
+		
+		_.each(_.range(1, 121), function(i) {
+			parent.append('<option>' + i + '</option>');
+		});
 	},
 
 	getPlayerInfo: function() {
 		var config = {
 			name: $('input.name').val() || '',
-			age: $('input.age').val() || '',
+			age: $('select.age').val() || '',
 			gender: $('input:radio[name=gender]:checked').val() || ''
 		};
 
@@ -62,19 +57,11 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 		var $err = $(this.el).find('.error');
 
 		if (config.name === '') {
-			this.notifyUser($err.filter('.name'), 'Please provide a name');
-			return;
-		} else if (config.age !== '' && isNaN(config.age)) {
-			$err.filter('.name').empty();
-			this.notifyUser($err.filter('.age'), "'Age' must be a number");
+			$err.text('Please provide a name');
 			return;
 		}
 		$err.empty();
 		return true;
-	},
-
-	notifyUser: function(elem, message) {
-		elem.text(message);
 	},
 
 	submitPlayerInfo: function(evt) {
