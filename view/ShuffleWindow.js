@@ -6,19 +6,17 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	},
 
 	initialize: function(options) {
-		$(options.parentEl).append(this.el);
+		$('body').append(this.el);
 		$(this.el).html(
-			'<div class="window-container">' +
-				'<h4>Shuffle settings.</h4>' +
-				'<form>' +
-					'<label>Shuffle by gender' +
-						'<input type="radio" name="gender" class="gender" value="yes">Yes</input>' +
-						'<input type="radio" name="gender" class="gender" value="no">No</input>' +
-					'</label>' +
-					'<input type="submit" class="btn-submit" value="Shuffle"></input>' +
-					'<button class="btn-close">Cancel</button>' +
-				'</form>' +
-			'</div>'
+			'<h4>Shuffle settings.</h4>' +
+			'<form>' +
+				'<label>Shuffle by gender' +
+					'<input type="radio" name="gender" class="gender" value="yes">Yes</input>' +
+					'<input type="radio" name="gender" class="gender" value="no">No</input>' +
+				'</label>' +
+				'<input type="submit" class="btn-submit" value="Shuffle"></input>' +
+				'<button class="btn-close">Cancel</button>' +
+			'</form>'
 		);
 	},
 

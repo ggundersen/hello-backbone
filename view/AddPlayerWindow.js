@@ -2,28 +2,27 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 
 	events: {
 		'click button.btn-close' : 'cancelWindow',
-		'click input.btn-submit' : 'submitPlayerInfo'
+		'click button.btn-submit' : 'submitPlayerInfo'
 	},
 
 	initialize: function(options) {
-		$(options.parentEl).append(this.el);
+		$('body').append(this.el);
 		$(this.el).html(
-			'<div class="window-container">' +
-				'<h4>Add a user.</h4>' +
-				'<form id="add-player">' +
-					'<label>Name:' +
-						'<span class="error"></span>' +
-						'<input class="name"></input>' +
-					'</label>' +
-					'<label>Gender <span class="optional"> (optional):</span>' +
-						'<input type="radio" name="gender" class="gender" value="female">Female</input>' +
-						'<input type="radio" name="gender" class="gender" value="male">Male</input>' +
-					'</label>' +
-					'<input type="submit" class="btn-submit" value="Add"></input>' +
-					'<button class="btn-close">Cancel</button>' +
-				'</form>' +
-			'</div>'
+			'<h4>Add a user</h4>' +
+			'<form id="add-player">' +
+				'<label>Name:' +
+					'<span class="error"></span>' +
+					'<input class="name"></input>' +
+				'</label>' +
+				'<label>Gender <span class="optional"> (optional):</span>' +
+					'<input type="radio" name="gender" class="gender" value="female">Female</input>' +
+					'<input type="radio" name="gender" class="gender" value="male">Male</input>' +
+				'</label>' +
+				'<button class="btn-submit">Add</input>' +
+				'<button class="btn-close">Cancel</button>' +
+			'</form>'
 		);
+		$('body').append('<div class="overlay"></div>');
 	},
 
 	getPlayerConfig: function() {

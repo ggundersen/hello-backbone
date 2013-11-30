@@ -1,37 +1,80 @@
 body {
+	background: #eee;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
 	margin: 0;
 }
+button {
+	border: none;
+	background: none;
+	margin: 0;
+	padding: 0;
+}
+#content {
+	background: #fff;
+	border: 1px solid #aaa;
+	margin: 0 auto;
+	padding: 15px;
+	position: relative;
+	top: 20px;
+	width: 400px;
+}
+#content h3 {
+	border-bottom: 1px solid #aaa;
+	font-family: 'Abril Fatface', serif;
+	font-size: 45px;
+	font-weight: 400;
+	margin: 10px 0;
+	text-align: center;
+}
+#content button:hover {
+	font-weight: 700;
+}
+
+.menu button {
+	text-transform: uppercase;
+}
+
 .window {
+	background: #fff;
+	border: 1px solid #000;
+	display: none;
+	left: 50%;
+	margin: 0 auto;
+	margin-left: -200px;
+	position: absolute;
+	text-align: center;
+	top: 120px;
+	width: 400px;
+	z-index: 2;
+}
+
+.window label {
+	display: block;
+	margin: 0 auto;
+	width: 400px;
+}
+.window h4 {
+	font-size: 16px;
+}
+/*.window .btn-submit {
+	display: block;
+	margin: 0 auto;
+}*/
+.window .error {
+	color: #ff0000;
+	font-size: 12px;
+}
+.overlay {
 	background: #000;
+	bottom: 0;
 	display: none;
 	height: 100%;
+	left: 0;
 	margin: 0;
 	opacity: .7;
 	padding: 0;
 	position: absolute;
+	right: 0;
 	top: 0;
-	width: 100%;
-	z-index: 1000;
-}
-.window h4 {
-	text-decoration: underline;
-}
-.window div {
-	background-color: #fff;
-	border: 1px solid #000;
-	margin: 100px auto;
-	padding: 15px;
-	text-align: center;
-	width: 300px;
-}
-.window label {
-	display: block;
-}
-.window .btn-submit {
-	display: block;
-	margin: 0 auto;
-}
-.window .error {
-	color: #ff0000;
-	font-size: 12px;
 }
