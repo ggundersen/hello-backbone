@@ -11,12 +11,12 @@ App.View.ShuffleWindow = BaseWindow.extend({
 			'<div class="window-container">' +
 				'<h4>Shuffle settings.</h4>' +
 				'<form>' +
-					'<label>Shuffle by age <span class="optional">(optional)</span></label>' +
-					'<input type="radio" name="age" class="btn-age" value="adults">Adults</input>' +
-					'<input type="radio" name="age" class="btn-age" value="children">children</input>' +
-					'<label>Shuffle by sex <span class="optional">(optional)</span></label>' +
-					'<input type="radio" name="gender" class="btn-gender" value="female">Female</input>' +
-					'<input type="radio" name="gender" class="btn-gender" value="male">Male</input>' +
+					'<label>Shuffle by age</label>' +
+					'<input type="radio" name="age" class="age" value="yes">Yes</input>' +
+					'<input type="radio" name="age" class="age" value="no">No</input>' +
+					'<label>Shuffle by sex</label>' +
+					'<input type="radio" name="gender" class="gender" value="yes">Yes</input>' +
+					'<input type="radio" name="gender" class="gender" value="no">No</input>' +
 					'<input type="submit" class="btn-submit" value="Shuffle"></input>' +
 					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
@@ -53,7 +53,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		console.log(this.collection);
 		
 		this.collection.reset( App.Algorithm.Shuffle( this.collection.models ) );
-		console.log('shuffled');
+		console.log('');
 		console.log(this.collection);
 		
 		this.resetWindow();

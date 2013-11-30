@@ -11,33 +11,24 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 			'<div class="window-container">' +
 				'<h4>Add a user.</h4>' +
 				'<form>' +
-					'<label>Name</label>' +
-					'<input class="name"></input>' +
-					'<label for="age">Age ' +
-						'<span class="optional">(optional)</span>' +
+					'<label>Name:' +
 						'<span class="error"></span>' +
+						'<input class="name"></input>' +
 					'</label>' +
-					'<select class="age" size="5">' +
-						this.getAgeOptions() +
-					'</select>' +
-					'<label>Gender ' +
-						'<span class="optional">(optional)</span>' +
-						'<span class="age"></span>' +
+					'<label>Age <span class="optional"> (optional):</span>' +
+						'<input type="radio" name="age" class="age" value="adult">adult</input>' +
+						'<input type="radio" name="age" class="age" value="child">child</input>' +
+					'</label>' +		
+					'<label>Gender <span class="optional"> (optional):</span>' +
+						'<input type="radio" name="gender" class="gender" value="female">Female</input>' +
+						'<input type="radio" name="gender" class="gender" value="male">Male</input>' +
 					'</label>' +
-					'<input type="radio" name="gender" class="gender" value="female">Female</input>' +
-					'<input type="radio" name="gender" class="gender" value="male">Male</input>' +
 					'<input type="submit" class="btn-submit" value="Add"></input>' +
 					'<button class="btn-close">Cancel</button>' +
 				'</form>' +
 			'</div>'
 		);
 		$(this.parentEl).append(this.el);
-	},
-
-	getAgeOptions: function() {
-		return _.map(_.range(1, 121), function(i) {
-			return '<option>' + i + '</option>';
-		}).join('');
 	},
 
 	getPlayerConfig: function() {
@@ -49,7 +40,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	},
 
 	isValidConfig: function(config) {
-		return config.name === '';
+		return config.name !== '';
 	},
 
 	notifyUser: function(message) {
@@ -62,9 +53,10 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 		var config = this.getPlayerConfig(),
 			giver;
 
-		if ( this.isValidConfig(config) ) {		
+		if ( !this.isValidConfig(config) ) {		
 			this.notifyUser('Please provide a name');
 		} else {
+			console.log(config);
 			giver = new App.Model.Giver(config);
 			this.collection.add(giver);
 			this.resetWindow();
