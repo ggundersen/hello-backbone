@@ -10,7 +10,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 		$(this.el).html(
 			'<div class="window-container">' +
 				'<h4>Add a user.</h4>' +
-				'<form>' +
+				'<form id="add-player">' +
 					'<label>Name:' +
 						'<span class="error"></span>' +
 						'<input class="name"></input>' +
@@ -34,8 +34,8 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	getPlayerConfig: function() {
 		return {
 			name: $('input.name').val() || '',
-			age: $('select.age').val() || '',
-			gender: $('input:radio[name=gender]:checked').val() || ''
+			age: $('input:radio[name=age]:checked', '#add-player').val() || '',
+			gender: $('input:radio[name=gender]:checked', '#add-player').val() || ''
 		};
 	},
 
@@ -53,10 +53,9 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 		var config = this.getPlayerConfig(),
 			giver;
 
-		if ( !this.isValidConfig(config) ) {		
+		if ( !this.isValidConfig(config) ) {
 			this.notifyUser('Please provide a name');
 		} else {
-			console.log(config);
 			giver = new App.Model.Giver(config);
 			this.collection.add(giver);
 			this.resetWindow();

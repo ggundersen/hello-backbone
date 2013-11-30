@@ -23,13 +23,13 @@ App.View.PlayersList = Backbone.View.extend({
 	},
 
 	appendPlayer: function() {
-		var lastModel = this.collection.at(this.collection.length - 1);
+		var latestModel = this.collection.at(this.collection.length - 1).attributes;
 
 		$(this.el).append(
 			'<tr>' +
-				'<td>' + lastModel.attributes.name + '</td>' +
-				'<td>' + lastModel.attributes.age + '</td>' +
-				'<td>' + lastModel.attributes.gender + '</td>' +
+				'<td>' + latestModel.name + '</td>' +
+				'<td>' + latestModel.age + '</td>' +
+				'<td>' + latestModel.gender + '</td>' +
 			'</tr>'
 		);
 	}
