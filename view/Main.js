@@ -30,7 +30,7 @@ App.View.Main = Backbone.View.extend({
 		this.collection = new App.Collection.Players();
 		this.render();
 
-		_.bindAll(this, 'showShuffleList');
+		_.bindAll(this, 'showShuffledList');
 
 		// Instantiate these views but do not render them yet.
 		this.addPlayerWindow = new App.View.AddPlayerWindow({
@@ -50,7 +50,7 @@ App.View.Main = Backbone.View.extend({
 			parentEl: that.el
 		});
 
-		this.listenTo(this.shuffleWindow, 'shuffle', this.showShuffleList);
+		this.listenTo(this.shuffleWindow, 'shuffle', this.showShuffledList);
 	},
 
 	removeMenu: function() {
@@ -72,21 +72,17 @@ App.View.Main = Backbone.View.extend({
 		this.addPlayerWindow.render();
 	},
 
-	showShuffleList: function(shuffledPlayers) {
+	showShuffledList: function(shuffledPlayers) {
 		var that = this;
 
 		this.playersList.unrender();
 		this.removeMenu();
 		this.shuffledList.render();
 
-		if (shuffledPlayers.length === 1) {
-			this.shuffledList.appendPlayers( shuffledPlayers );
-		} else {
-			_.each(shuffledPlayers, function(players) {
-				that.shuffledList.appendPlayers( players );
-			});
-		}
-		
+		console.log('showShuffleList');
+		console.log(shuffledPlayers);
+
+		this.shuffledList.appendPlayers( shuffledPlayers );	
 	},
 
 	showShuffleWindow: function() {

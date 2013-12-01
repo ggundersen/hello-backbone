@@ -62,19 +62,23 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		var playersByGroup = this.getFilteredPlayers(),
 			result = [];
 
+		console.log('players by group');
+		console.log(playersByGroup);
+
 		if ( !this.isValidConfig(playersByGroup) ) {
 			this.notifyUser('There are no players to shuffle!');
+			return;
+		}
+		if (playersByGroup.length === 1) {
+			result = App.Algorithm.Shuffle( playersByGroup[0] );
 		} else {
-			if (playersByGroup.length === 1) {
-				result = App.Algorithm.Shuffle( playersByGroup[0] );
-			} else {
-				result = _.map(playersByGroup, function(group) {
-					return App.Algorithm.Shuffle( group );
-				});
-			}
-			this.trigger('shuffle', result);
-			this.resetWindow();
-		}	
+			tempResult = _.map(playersByGroup, function(group) {
+				return App.Algorithm.Shuffle( group );
+			});
+			result = tempResult[0].concat(tempResult[1]);
+		}
+		this.trigger('shuffle', result);
+		this.resetWindow();	
 	}
 
 });
