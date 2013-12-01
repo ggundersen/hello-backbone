@@ -44,6 +44,10 @@ label {
 	left: 10px;
 	position: relative;
 }
+#content .description {
+	font-style: italic;
+	text-align: center;
+}
 #content .menu {
 	margin: 0 auto;
 	width: 194px;

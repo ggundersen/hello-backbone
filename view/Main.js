@@ -61,6 +61,7 @@ App.View.Main = Backbone.View.extend({
 		$(this.parentEl).append(this.el);
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
+			'<div class="description">This app will assign one gift recipient to each player. Just add some players and then shuffle!</div>' +
 			'<div class="menu">' +
 				'<button class="add-player">Add player</button>' +
 				'<button class="shuffle">Shuffle players</button>' +
