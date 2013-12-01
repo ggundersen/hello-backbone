@@ -49,9 +49,11 @@ label {
 	text-align: center;
 }
 #content .menu {
-	margin: 0 auto;
-	width: 194px;
+	/* margin: 0 auto; */
+	width: 187px;
 	padding-top: 20px;
+	position: relative;
+	left: 117px;
 }
 
 /* Participants table
@@ -61,14 +63,15 @@ table {
 	border-collapse: collapse;
 	position: relative;
 	top: 20px;
-	width: 100%;
 }
 table thead {
 	font-weight: 700;
 }
+table td {
+	width: 196px;
+}
 table .first {
-	float: right;
-	padding-right: 10px;
+	text-align: right;
 }
 table .last {
 	padding-left: 10px;
