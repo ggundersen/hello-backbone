@@ -44,6 +44,10 @@ label {
 	left: 10px;
 	position: relative;
 }
+#content .menu {
+	margin: 0 auto;
+	width: 194px;
+}
 
 /* Participants table
  * Assignments table
@@ -56,6 +60,13 @@ table {
 }
 table thead {
 	font-weight: 700;
+}
+table .first {
+	float: right;
+	padding-right: 10px;
+}
+table .last {
+	padding-left: 10px;
 }
 
 /* Window box and overlay

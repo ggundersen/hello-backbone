@@ -45,7 +45,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 			giver;
 
 		if ( !this.isValidConfig(config) ) {
-			this.notifyUser('Please provide a name');
+			this.notifyUser('Please provide a name!');
 		} else {
 			giver = new App.Model.Giver(config);
 			this.collection.add(giver);

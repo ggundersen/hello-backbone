@@ -49,8 +49,6 @@ App.View.ShuffleWindow = BaseWindow.extend({
 	},
 
 	isValidConfig: function(players) {
-		console.log(players);
-
 		if (players.length === 1) {
 			return players[0].length > 0;
 		} else {
@@ -65,7 +63,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 			result = [];
 
 		if ( !this.isValidConfig(playersByGroup) ) {
-			this.notifyUser('Please provide a name');
+			this.notifyUser('There are no players to shuffle!');
 			return;
 		}
 

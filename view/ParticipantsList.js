@@ -15,7 +15,8 @@ App.View.ParticipantsList = Backbone.View.extend({
 		$(this.el).append(
 			'<thead>' +
 				'<tr>' +
-					'<td>Name</td><td>Gender</td>' +
+					'<td class="first">Name</td>' +
+					'<td class="last">Gender</td>' +
 				'</tr>' +
 			'</thead>'
 		);
@@ -27,8 +28,8 @@ App.View.ParticipantsList = Backbone.View.extend({
 
 		$(this.el).append(
 			'<tr>' +
-				'<td>' + latestModel.name + '</td>' +
-				'<td>' + latestModel.gender + '</td>' +
+				'<td class="first">' + latestModel.name + '</td>' +
+				'<td class="last">' + latestModel.gender + '</td>' +
 			'</tr>'
 		);
 	},

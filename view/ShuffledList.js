@@ -17,8 +17,8 @@ App.View.ShuffledList = Backbone.View.extend({
 		_.each(players, function(player) {
 			$(that.el).find('tbody').append(
 				'<tr>' +
-					'<td>' + player.get('name') + '</td>' +
-					'<td>' + player.get('receiver') + '</td>' +
+					'<td class="first">' + player.get('name') + '</td>' +
+					'<td class="last">' + player.get('receiver') + '</td>' +
 				'</tr>'
 			);
 		});
@@ -29,8 +29,8 @@ App.View.ShuffledList = Backbone.View.extend({
 		$(this.el).append(
 			'<thead>' +
 				'<tr>' +
-					'<td>Giver</td>' +
-					'<td>Receiver</td>' +
+					'<td class="first">Giver</td>' +
+					'<td class="last">Receiver</td>' +
 				'</tr>' +
 			'</thead>' + 
 			'<tbody></tbody>'

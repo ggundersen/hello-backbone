@@ -67,10 +67,10 @@ App.View.Main = Backbone.View.extend({
 		$(this.parentEl).append(this.el);
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
-			'<span class="menu">' +
+			'<div class="menu">' +
 				'<button class="btn-add-player">Add player</button>' +
 				'<button class="btn-shuffle">Shuffle players</button>' +
-			'</span>'
+			'</div>'
 		);
 	},
 
