@@ -7,10 +7,11 @@
 	margin: 0;
 }
 button {
-	border: none;
-	background: none;
+	border: 1px solid #aaa;
+	background: #ddd;
+	font-size: 12px;
 	margin: 0;
-	padding: 0;
+	padding: 2px 5px;
 }
 button:hover {
 	cursor: pointer;
@@ -41,16 +42,21 @@ button:hover {
 #content .menu button {
 	text-transform: uppercase;
 }
+#content .btn-shuffle {
+	left: 10px;
+	position: relative;
+}
 
 /* Participants table
+ * Assignments table
  * ------------------ */
-#participants {
+table {
 	border-collapse: collapse;
 	position: relative;
 	top: 20px;
 	width: 100%;
 }
-#participants thead {
+table thead {
 	font-weight: 700;
 }
 
@@ -60,6 +66,7 @@ button:hover {
 	background: #fff;
 	border: 1px solid #000;
 	display: none;
+	height: 150px;
 	left: 50%;
 	margin: 0 auto;
 	margin-left: -200px;
@@ -69,7 +76,6 @@ button:hover {
 	width: 400px;
 	z-index: 2;
 }
-
 .window label {
 	display: block;
 	margin: 0 auto;
