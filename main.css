@@ -1,13 +1,13 @@
 /* General
  * ------- */
- body {
+body {
 	background: #eee;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 12px;
 	margin: 0;
 }
 button {
-	border: 1px solid #aaa;
+	border: 2px solid #fff;
 	background: #ddd;
 	font-size: 12px;
 	margin: 0;
@@ -15,6 +15,10 @@ button {
 }
 button:hover {
 	cursor: pointer;
+	border: 2px solid #000;
+}
+label {
+	padding: 5px 0;
 }
 
 /* Content, menu
@@ -35,12 +39,6 @@ button:hover {
 	font-weight: 400;
 	margin: 10px 0;
 	text-align: center;
-}
-#content button:hover {
-	font-weight: 700;
-}
-#content .menu button {
-	text-transform: uppercase;
 }
 #content .btn-shuffle {
 	left: 10px;
@@ -66,7 +64,7 @@ table thead {
 	background: #fff;
 	border: 1px solid #000;
 	display: none;
-	height: 150px;
+	height: 170px;
 	left: 50%;
 	margin: 0 auto;
 	margin-left: -200px;
@@ -82,11 +80,24 @@ table thead {
 	width: 400px;
 }
 .window h4 {
+	font-family: 'Abril Fatface', serif;
 	font-size: 16px;
+	margin-bottom: 10px;
 }
 .window .error {
 	color: #ff0000;
+	display: block;
 	font-size: 12px;
+	padding-top: 5px;
+}
+.window .optional {
+	color: #aaa;
+}
+.window .name {
+	width: 200px;
+}
+.window .label-title {
+	padding-right: 5px;
 }
 .overlay {
 	background: #000;

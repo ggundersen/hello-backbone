@@ -2,20 +2,22 @@ App.View.ShuffleWindow = BaseWindow.extend({
 
 	events: {
 		'click button.btn-close' : 'cancelWindow',
-		'click input.btn-submit' : 'runAlgorithm'
+		'click button.btn-submit' : 'runAlgorithm'
 	},
 
 	initialize: function(options) {
 		$('body').append(this.el);
 		$(this.el).html(
-			'<h4>Shuffle settings.</h4>' +
+			'<h4>Shuffle settings</h4>' +
 			'<form>' +
-				'<label>Shuffle by gender' +
+				'<label>' +
+					'<span class="label-title">Shuffle by gender:</span>' +
 					'<input type="radio" name="gender" class="gender" value="yes">Yes</input>' +
 					'<input type="radio" name="gender" class="gender" value="no">No</input>' +
 				'</label>' +
-				'<input type="submit" class="btn-submit" value="Shuffle"></input>' +
+				'<button class="btn-submit">Shuffle</input>' +
 				'<button class="btn-close">Cancel</button>' +
+				'<span class="error"></span>' +
 			'</form>'
 		);
 	},
@@ -46,11 +48,26 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		};
 	},
 
+	isValidConfig: function(players) {
+		console.log(players);
+
+		if (players.length === 1) {
+			return players[0].length > 0;
+		} else {
+			return players[0].length > 0 || players[1].length > 0;
+		}
+	},
+
 	runAlgorithm: function(evt) {
 		evt.preventDefault();
 
 		var playersByGroup = this.getFilteredPlayers(),
 			result = [];
+
+		if ( !this.isValidConfig(playersByGroup) ) {
+			this.notifyUser('Please provide a name');
+			return;
+		}
 
 		if (playersByGroup.length === 1) {
 			result = App.Algorithm.Shuffle( playersByGroup[0] );
@@ -59,9 +76,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 				return App.Algorithm.Shuffle( group );
 			});
 		}
-		
 		this.trigger('shuffle', result);
-
 		this.resetWindow();
 	}
 

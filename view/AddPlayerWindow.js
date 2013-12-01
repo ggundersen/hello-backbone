@@ -10,16 +10,18 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 		$(this.el).html(
 			'<h4>Add a user</h4>' +
 			'<form id="add-player">' +
-				'<label>Name:' +
-					'<span class="error"></span>' +
+				'<label>' +
+					'<span class="label-title">Name:</span>' +
 					'<input class="name"></input>' +
 				'</label>' +
-				'<label>Gender <span class="optional"> (optional):</span>' +
+				'<label>' +
+					'<span class="label-title">Gender <span class="optional"> (optional):</span></span>' +
 					'<input type="radio" name="gender" class="gender" value="female">Female</input>' +
 					'<input type="radio" name="gender" class="gender" value="male">Male</input>' +
 				'</label>' +
 				'<button class="btn-submit">Add</input>' +
 				'<button class="btn-close">Cancel</button>' +
+				'<span class="error"></span>' +
 			'</form>'
 		);
 		$('body').append('<div class="overlay"></div>');
@@ -34,10 +36,6 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 
 	isValidConfig: function(config) {
 		return config.name !== '';
-	},
-
-	notifyUser: function(message) {
-		$(this.el).find('.error').text(message);	
 	},
 
 	submitPlayerInfo: function(evt) {

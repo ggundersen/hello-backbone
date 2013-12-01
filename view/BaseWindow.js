@@ -7,6 +7,11 @@ var BaseWindow = Backbone.View.extend({
 		this.resetWindow();
 	},
 
+	notifyUser: function(message) {
+		//$(this.el).find('.' + className).attr('placeholder', message);
+		$(this.el).find('.error').text(message);
+	},
+
 	render: function() {
 		$(this.el).show();
 		$('.overlay').show();
