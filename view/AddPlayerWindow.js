@@ -8,7 +8,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	initialize: function(options) {
 		$('body').append(this.el);
 		$(this.el).html(
-			'<h4>Add a user</h4>' +
+			'<h4>Player info</h4>' +
 			'<form class="add-player">' +
 				'<label>' +
 					'<span class="label-title">Name:</span>' +

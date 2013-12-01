@@ -8,7 +8,6 @@ var BaseWindow = Backbone.View.extend({
 	},
 
 	notifyUser: function(message) {
-		//$(this.el).find('.' + className).attr('placeholder', message);
 		$(this.el).find('.error').text(message);
 	},
 
