@@ -26,6 +26,7 @@ App.View.ParticipantsList = Backbone.View.extend({
 	appendPlayer: function() {
 		var latestModel = this.collection.at(this.collection.length - 1).attributes;
 
+		$(this.el).show();
 		$(this.el).append(
 			'<tr>' +
 				'<td class="first">' + latestModel.name + '</td>' +

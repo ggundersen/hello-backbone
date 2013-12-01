@@ -1,8 +1,8 @@
 App.View.ShuffleWindow = BaseWindow.extend({
 
 	events: {
-		'click button.btn-close' : 'cancelWindow',
-		'click button.btn-submit' : 'runAlgorithm'
+		'click button.close' : 'cancelWindow',
+		'click button.submit' : 'runAlgorithm'
 	},
 
 	initialize: function(options) {
@@ -15,8 +15,8 @@ App.View.ShuffleWindow = BaseWindow.extend({
 					'<input type="radio" name="gender" class="gender" value="yes">Yes</input>' +
 					'<input type="radio" name="gender" class="gender" value="no">No</input>' +
 				'</label>' +
-				'<button class="btn-submit">Shuffle</input>' +
-				'<button class="btn-close">Cancel</button>' +
+				'<button class="submit">Shuffle</input>' +
+				'<button class="close">Cancel</button>' +
 				'<span class="error"></span>' +
 			'</form>'
 		);

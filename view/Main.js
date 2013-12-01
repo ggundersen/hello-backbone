@@ -20,43 +20,41 @@ App.View.Main = Backbone.View.extend({
 	// Actual DOM elements that this events hash references are built
 	// in `App.View.Menu`. This does not seem ideal.
 	events: {
-		'click button.btn-add-player': 'showAddPlayerWindow',
-		'click button.btn-shuffle': 'showShuffleWindow'
+		'click button.add-player': 'showAddPlayerWindow',
+		'click button.shuffle': 'showShuffleWindow'
 	},
 
 	initialize: function() {
 		var that = this;
 
 		this.collection = new App.Collection.Players();
-		this.render();
-
+		
 		this.participantsList = new App.View.ParticipantsList({
 			collection: that.collection,
 			parentEl: that.el
 		});
-
 		// Instantiate these views but do not render them yet.
 		this.addPlayerWindow = new App.View.AddPlayerWindow({
 			collection: that.collection,
 			parentEl: that.el
 		});
-
 		this.shuffleWindow = new App.View.ShuffleWindow({
 			collection: that.collection,
 			parentEl: that.el
 		});
-
 		this.shuffledList = new App.View.ShuffledList({
 			collection: that.collection,
-			parentEl: that.el,
-			mainThis: that
+			parentEl: that.el//,
+			//mainThis: that
 		});
-
-		this.shuffledList.listenTo(
-			that.shuffleWindow,
+		this.shuffledList.on(
 			'shuffle',
-			that.showShuffleList
+			//that.shuffleWindow,
+			that.showShuffleList,
+			that
 		);
+
+		this.render();
 	},
 
 	removeMenu: function() {
@@ -68,8 +66,8 @@ App.View.Main = Backbone.View.extend({
 		$(this.el).append(
 			'<h3>White Elephant</h3>' +
 			'<div class="menu">' +
-				'<button class="btn-add-player">Add player</button>' +
-				'<button class="btn-shuffle">Shuffle players</button>' +
+				'<button class="add-player">Add player</button>' +
+				'<button class="shuffle">Shuffle players</button>' +
 			'</div>'
 		);
 	},
@@ -79,6 +77,9 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	showShuffleList: function(shuffledPlayers) {
+
+		console.log(shuffledPlayers);
+
 		// `this` refers to the callback's object, `ShuffledList`. A
 		// reference to the view `Main` is passed to `ShuffledList`
 		// when the view is instantiated. Is rhis really the best

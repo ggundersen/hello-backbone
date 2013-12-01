@@ -14,7 +14,10 @@ App.View.ShuffledList = Backbone.View.extend({
 	appendPlayers: function(players) {
 		var that = this;
 
+		console.log(players);
+
 		_.each(players, function(player) {
+			console.log(player);
 			$(that.el).find('tbody').append(
 				'<tr>' +
 					'<td class="first">' + player.get('name') + '</td>' +

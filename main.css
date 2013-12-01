@@ -40,7 +40,7 @@ label {
 	margin: 10px 0;
 	text-align: center;
 }
-#content .btn-shuffle {
+#content .shuffle {
 	left: 10px;
 	position: relative;
 }
@@ -67,6 +67,10 @@ table .first {
 }
 table .last {
 	padding-left: 10px;
+}
+#participants {
+	/* This table starts off hidden; it is shown when a user is added. */
+	display: none;
 }
 
 /* Window box and overlay

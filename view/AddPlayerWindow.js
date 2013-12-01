@@ -1,8 +1,8 @@
 App.View.AddPlayerWindow = BaseWindow.extend({
 
 	events: {
-		'click button.btn-close' : 'cancelWindow',
-		'click button.btn-submit' : 'submitPlayerInfo'
+		'click button.close' : 'cancelWindow',
+		'click button.submit' : 'submitPlayerInfo'
 	},
 
 	initialize: function(options) {
@@ -19,8 +19,8 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 					'<input type="radio" name="gender" class="gender" value="female">Female</input>' +
 					'<input type="radio" name="gender" class="gender" value="male">Male</input>' +
 				'</label>' +
-				'<button class="btn-submit">Add</input>' +
-				'<button class="btn-close">Cancel</button>' +
+				'<button class="submit">Add</input>' +
+				'<button class="close">Cancel</button>' +
 				'<span class="error"></span>' +
 			'</form>'
 		);
