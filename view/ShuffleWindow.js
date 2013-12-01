@@ -2,7 +2,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 
 	events: {
 		'click button.close' : 'cancelWindow',
-		'click button.submit' : 'runAlgorithm'
+		'click button.submit' : 'shufflePlayers'
 	},
 
 	initialize: function(options) {
@@ -11,7 +11,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 			'<h4>Shuffle settings</h4>' +
 			'<form>' +
 				'<label>' +
-					'<span class="label-title">Shuffle by gender:</span>' +
+					'<span class="label-title">Shuffle by gender <span class="optional"> (optional):</span></span>' +
 					'<input type="radio" name="gender" class="gender" value="yes">Yes</input>' +
 					'<input type="radio" name="gender" class="gender" value="no">No</input>' +
 				'</label>' +
@@ -56,7 +56,7 @@ App.View.ShuffleWindow = BaseWindow.extend({
 		}
 	},
 
-	runAlgorithm: function(evt) {
+	shufflePlayers: function(evt) {
 		evt.preventDefault();
 
 		var playersByGroup = this.getFilteredPlayers(),
@@ -64,18 +64,17 @@ App.View.ShuffleWindow = BaseWindow.extend({
 
 		if ( !this.isValidConfig(playersByGroup) ) {
 			this.notifyUser('There are no players to shuffle!');
-			return;
-		}
-
-		if (playersByGroup.length === 1) {
-			result = App.Algorithm.Shuffle( playersByGroup[0] );
 		} else {
-			result = _.map(playersByGroup, function(group) {
-				return App.Algorithm.Shuffle( group );
-			});
-		}
-		this.trigger('shuffle', result);
-		this.resetWindow();
+			if (playersByGroup.length === 1) {
+				result = App.Algorithm.Shuffle( playersByGroup[0] );
+			} else {
+				result = _.map(playersByGroup, function(group) {
+					return App.Algorithm.Shuffle( group );
+				});
+			}
+			this.trigger('shuffle', result);
+			this.resetWindow();
+		}	
 	}
 
 });

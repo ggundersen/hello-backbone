@@ -28,11 +28,10 @@ App.View.Main = Backbone.View.extend({
 		var that = this;
 
 		this.collection = new App.Collection.Players();
-		
-		this.participantsList = new App.View.ParticipantsList({
-			collection: that.collection,
-			parentEl: that.el
-		});
+		this.render();
+
+		_.bindAll(this, 'showShuffleList');
+
 		// Instantiate these views but do not render them yet.
 		this.addPlayerWindow = new App.View.AddPlayerWindow({
 			collection: that.collection,
@@ -42,19 +41,16 @@ App.View.Main = Backbone.View.extend({
 			collection: that.collection,
 			parentEl: that.el
 		});
+		this.playersList = new App.View.PlayersList({
+			collection: that.collection,
+			parentEl: that.el
+		});
 		this.shuffledList = new App.View.ShuffledList({
 			collection: that.collection,
-			parentEl: that.el//,
-			//mainThis: that
+			parentEl: that.el
 		});
-		this.shuffledList.on(
-			'shuffle',
-			//that.shuffleWindow,
-			that.showShuffleList,
-			that
-		);
 
-		this.render();
+		this.listenTo(this.shuffleWindow, 'shuffle', this.showShuffleList);
 	},
 
 	removeMenu: function() {
@@ -77,23 +73,14 @@ App.View.Main = Backbone.View.extend({
 	},
 
 	showShuffleList: function(shuffledPlayers) {
+		var that = this;
 
-		console.log(shuffledPlayers);
+		this.playersList.unrender();
+		this.removeMenu();
+		this.shuffledList.render();
 
-		// `this` refers to the callback's object, `ShuffledList`. A
-		// reference to the view `Main` is passed to `ShuffledList`
-		// when the view is instantiated. Is rhis really the best
-		// way to do this?
-		var that = this.mainThis;
-
-		that.participantsList.unrender();
-		that.removeMenu();
-
-		// I could also call `this.render`, but I find that
-		// confusing.
-		that.shuffledList.render();
 		if (shuffledPlayers.length === 1) {
-			that.shuffledList.appendPlayers( shuffledPlayers );
+			this.shuffledList.appendPlayers( shuffledPlayers );
 		} else {
 			_.each(shuffledPlayers, function(players) {
 				that.shuffledList.appendPlayers( players );

@@ -9,7 +9,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 		$('body').append(this.el);
 		$(this.el).html(
 			'<h4>Add a user</h4>' +
-			'<form id="add-player">' +
+			'<form class="add-player">' +
 				'<label>' +
 					'<span class="label-title">Name:</span>' +
 					'<input class="name"></input>' +
@@ -30,7 +30,7 @@ App.View.AddPlayerWindow = BaseWindow.extend({
 	getPlayerConfig: function() {
 		return {
 			name: $('input.name').val() || '',
-			gender: $('input:radio[name=gender]:checked', '#add-player').val() || ''
+			gender: $('input:radio[name=gender]:checked', '.add-player').val() || ''
 		};
 	},
 
